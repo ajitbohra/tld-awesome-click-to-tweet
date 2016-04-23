@@ -3,6 +3,7 @@
 Plugin Name: TLD WordPress Embedded Tweet Intents
 Plugin URI: http://soaringleads.com
 Description: A plugin for inserting tweet intents directly into posts.
+Version: 1.0.0-alpha
 Author: Uriahs Victor
 Author URI: http://soaringleads.com
 License: GPL2
@@ -30,6 +31,7 @@ add_action( 'widgets_init', 'remove_calendar_widget' );
 * Register style sheet.
 */
 function tld_tweet_intents_styles() {
+	wp_register_style( 'tld-tweet-intents', plugins_url( 'tld-wp-embedded-tweet-intents/style.css' ) );
 	wp_enqueue_style( 'tld-tweet-intents' );
 }
 
@@ -73,6 +75,7 @@ function add_tweet_intent(){
 
 			$tweet_container = '
 			<div id="tld-tweet-container">
+			<a id="tld-tweet-text" href="https://twitter.com/intent/tweet?text='.$tweet_msg.'" target="_blank">Tweet: '.$tweet_txt.'
 
 			<div id="tld-tweet-icon-container"><img id="tld-tweet-icon-img" src="'.$tweet_icon.'" alt="" /></div>
 
