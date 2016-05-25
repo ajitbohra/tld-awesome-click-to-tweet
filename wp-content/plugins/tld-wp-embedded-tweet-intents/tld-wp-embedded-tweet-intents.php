@@ -51,7 +51,7 @@ function add_tweet_intent(){
 
 		function tld_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
 			$closing_p = '</p>';
-			$paragraphs = explode( $closing_p, $content );
+			$paragraphs = explode( $closing_p, do_shortcode($content) );
 			foreach ($paragraphs as $index => $paragraph) {
 
 				if ( trim( $paragraph ) ) {
