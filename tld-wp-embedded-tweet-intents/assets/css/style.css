@@ -1,0 +1,33 @@
+#tld-tweet-container{
+  font-family: 'Lobster Two';
+  text-align: center;
+  padding: 30px;
+  margin-bottom:15px;
+  border-top: 10px solid #5BC199;
+  border-bottom: 10px solid #5BC199;
+  -webkit-animation-duration: 4s;
+  -webkit-animation-delay: 3s;
+}
+
+a#tld-tweet-text {
+    font-size: 40px;
+}
+
+#tld-tweet-text:hover{
+  color:#C60ED7;
+  text-decoration: none;
+}
+
+#tld-tweet-text a:link{
+  text-decoration: none;
+}
+
+#tld-tweet-icon{
+
+}
+
+#tld-tweet-icon-img{
+  margin: 0 auto;
+  border: none;
+  margin-top: 10px;
+}
