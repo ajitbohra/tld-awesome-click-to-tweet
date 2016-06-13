@@ -1,9 +1,22 @@
-/* INPUTS */
+/* INPUTS*/
 
-.tweet-inputs{
-  width: 100%;
+#tld-wpeti-meta-wrap{
+  text-align: center;
 }
 
-#tld-wpeti-intent-paragraph{
-  width: 8%;
+.tld-wpeti-meta-float-left {
+float: left;
+width: 50%
+}
+
+.tld-wpeti-tweet-inputs{
+  width: 95%;
+}
+
+.tld-wpeti-number-input{
+  width: 15%;
+}
+
+.tld-wpeti-clearfix{
+  clear: both;
 }

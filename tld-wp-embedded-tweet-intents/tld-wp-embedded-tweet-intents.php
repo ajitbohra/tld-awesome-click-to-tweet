@@ -3,7 +3,7 @@
 Plugin Name: TLD WordPress Embedded Tweet Intents
 Plugin URI: http://soaringleads.com
 Description: A plugin for inserting tweet intents directly into posts after any paragraph.
-Version: 1.0.0-beta
+Version: 1.1.0-beta
 Author: Uriahs Victor
 Author URI: http://soaringleads.com
 License: GPL2
@@ -11,7 +11,6 @@ License: GPL2
 
 
 defined( 'ABSPATH' ) or die( 'But why!?' );
-//include_once('fields.php');
 
 add_action( 'loop_start', 'add_tweet_intent' );
 add_action( 'wp_enqueue_scripts', 'tld_wpeti_load_intents_assets' );
@@ -25,7 +24,7 @@ add_action( 'save_post', 'tld_wpeti_save_data' );
 * Register style sheet.
 */
 function tld_wpeti_load_intents_assets() {
-	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . '/assets/css/style.css?v1.0.9' );
+	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . '/assets/css/style.css?v1.0.22' );
 	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . '/assets/css/animate.min.css?v3.5.2' );
 	wp_enqueue_style( 'tld-tweet-intents' );
 	wp_enqueue_style( 'tld-tweet-intents-animate' );
@@ -33,7 +32,7 @@ function tld_wpeti_load_intents_assets() {
 }
 
 function tld_wpeti_load_admin_assets(){
-	wp_register_style( 'tld_wpeti_styles',  plugin_dir_url( __FILE__ ) . '/assets/css/admin.css?v1.0.5' );
+	wp_register_style( 'tld_wpeti_styles',  plugin_dir_url( __FILE__ ) . '/assets/css/admin.css?v1.0.14' );
 	wp_enqueue_style( 'tld_wpeti_styles' );
 }
 
@@ -57,6 +56,7 @@ add_action( 'add_meta_boxes_post', 'tld_wpeti_metabox' );
 function tld_wpeti_intent_animations(){
 	global $animations;
 	$animations = array(
+		"None"				=> "",
 		"Pulse"				=> "pulse",
 		"Bounce"			=> "bounce",
 		"Swing"				=> "swing",
@@ -64,7 +64,16 @@ function tld_wpeti_intent_animations(){
 		"Wobble"			=> "wobble",
 		"Rotate In"		=> "rotateIn",
 		"Light Speed In" => "lightSpeedIn"
+	);
 
+}
+
+function tld_wpeti_intent_templates(){
+	global $templates;
+	$templates = array(
+		"Default"				=> "tld-default",
+		"Minimalist"		=> "tld-minimalist",
+		"Minimalist 2"		=> "tld-minimalist-2",
 	);
 
 }
@@ -72,80 +81,124 @@ function tld_wpeti_intent_animations(){
 function tld_wpeti_metabox_fields(){
 
 	$tld_wpeti_intent_mask = sanitize_text_field( get_post_meta( get_the_ID(), 'tld_wpeti_intent_mask', true ) );
-
 	$tld_wpeti_intent_text = sanitize_text_field( get_post_meta( get_the_ID(), 'tld_wpeti_intent_text', true ) );
-
 	$tld_wpeti_intent_paragraph = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_paragraph', true ) );
+	$tld_wpeti_animation_duration = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_animation_duration', true ) );
+	$tld_wpeti_animation_delay = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_animation_delay', true ) );
 
 	?>
 
-	<div>
+	<div id="tld-wpeti-meta-wrap">
 
-		<p>
-			<em><label for="tld-wpeti-intent-mask">Tweet Mask</label></em>
-		</p>
+		<div class="tld-wpeti-meta-float-left">
+			<div>
+				<p>
+					<em><label for="tld-wpeti-intent-mask">Tweet Mask</label></em>
+				</p>
+			</div>
+			<div>
+				<textarea name="tld-wpeti-intent-mask" rows="2" id="tld-wpeti-intent-mask" class="tld-wpeti-tweet-inputs" placeholder="The text shown to visitors on the post."><?php 	if ( !empty( $tld_wpeti_intent_mask ) ){ echo $tld_wpeti_intent_mask; } ?></textarea>
+			</div>
+		</div>
 
-	</div>
+		<div class="tld-wpeti-meta-float-left">
+			<div>
+				<p>
+					<em><label for="tld-wpeti-intent-text">Tweet Intent</label></em>
+				</p>
+			</div>
+			<div>
+				<textarea name="tld-wpeti-intent-text" rows="2" id="tld-wpeti-intent-text" class="tld-wpeti-tweet-inputs" maxlength="140" placeholder="The actual intent which gets sent to twitter"><?php if ( !empty( $tld_wpeti_intent_text ) ){ echo $tld_wpeti_intent_text; } ?></textarea>
+			</div>
+		</div>
 
-	<div>
+		<div class="tld-wpeti-clearfix"></div>
 
-		<textarea name="tld-wpeti-intent-mask" rows="2" id="tld-wpeti-intent-mask" class="tweet-inputs" maxlength="140" placeholder="The text shown to visitors on the post."><?php 	if ( !empty( $tld_wpeti_intent_mask ) ){ echo $tld_wpeti_intent_mask; } ?></textarea>
+		<div class="tld-wpeti-meta-float-left">
+			<div>
+				<p>
+					<em><label for="tld-wpeti-intent-paragraph">Paragraph</label></em>
+				</p>
+				<span><em>Enter the paragraph number after which the intent will show.</em></span>
+			</div>
+			<div>
+				<input type="number" name="tld-wpeti-intent-paragraph" id="tld-wpeti-intent-paragraph" class="tld-wpeti-number-input" value="<?php echo $tld_wpeti_intent_paragraph  ?>">
+			</div>
+		</div>
 
-	</div>
+		<div class="tld-wpeti-meta-float-left">
+			<div>
+				<?php tld_wpeti_intent_animations(); global $animations; ?>
+				<p>
+					<em><label for="tld-wpeti-intent-animation"></label>Choose animation</em>
+				</p>
+				<span><em>Choose animation for this tweet.</em></span>
+			</div>
+			<div>
+				<select name="tld-wpeti-intent-animation">
+					<?php
 
-	<div>
+					$selected_animation = get_post_meta( get_the_ID(), 'tld_wpeti_intent_animation', true );
+					foreach ( $animations as $animation_nn => $animation ){
 
-		<p>
-			<em><label for="tld-wpeti-intent-text">Tweet Intent</label></em>
-		</p>
+						if ( $selected_animation == $animation ){
+							echo '<option value="' . $animation . '" selected>'. $animation_nn . '</option>';
+						}else{
+							echo '<option value="' . $animation . '">'. $animation_nn . '</option>';
+						}
 
-	</div>
+					}
 
-	<div>
+					?>
+				</select>
 
-		<textarea name="tld-wpeti-intent-text" rows="2" id="tld-wpeti-intent-text" class="tweet-inputs" maxlength="140" placeholder="The actual intent which gets sent to twitter"><?php if ( !empty( $tld_wpeti_intent_text ) ){ echo $tld_wpeti_intent_text; } ?></textarea>
+			</div>
+		</div>
 
-	</div>
+		<div class="tld-wpeti-clearfix"></div>
 
-	<div>
+		<div class="tld-wpeti-meta-float-left">
+			<div>
+				<p>
+					<em><label>Animation settings</label></em>
+				</p>
+				<span><em>Adjust animation settings(duration, delay respectively)</em></span>
+			</div>
+			<div>
+				<input type="number" name="tld-wpeti-animation-duration" id="tld-wpeti-animation-duration" class="tld-wpeti-number-input" value="<?php echo $tld_wpeti_animation_duration ?>">
+				<input type="number" name="tld-wpeti-animation-delay" id="tld-wpeti-animation-delay" class="tld-wpeti-number-input" value="<?php echo $tld_wpeti_animation_delay ?>">
+			</div>
+		</div>
 
-		<p>
-			<em><label for="tld-wpeti-intent-paragraph">Paragraph</label></em>
-		</p>
-		<span><em>Enter the paragraph number after which the intent will show.</em></span>
-	</div>
+		<div class="tld-wpeti-meta-float-left">
+			<div>
+				<?php tld_wpeti_intent_templates(); global $templates; ?>
+				<p>
+					<em><label for="tld-wpeti-intent-template"></label>Choose template</em>
+				</p>
+				<span><em>Choose template for this tweet.</em></span>
+			</div>
+			<div>
+				<select name="tld-wpeti-intent-template">
+					<?php
 
-	<div>
+					$selected_template = get_post_meta( get_the_ID(), 'tld_wpeti_intent_template', true );
+					foreach ( $templates as $template_nn => $template ){
 
-		<input type="number" name="tld-wpeti-intent-paragraph" id="tld-wpeti-intent-paragraph" value="<?php echo $tld_wpeti_intent_paragraph  ?>">
+						if ( $selected_template == $template ){
+							echo '<option value="' . $template . '" selected>'. $template_nn . '</option>';
+						}else{
+							echo '<option value="' . $template. '">'. $template_nn . '</option>';
+						}
 
-	</div>
+					}
 
-	<div>
-		<?php tld_wpeti_intent_animations();
-		global $animations;
-		//	echo var_dump($animations);
-		?>
-		<p>
-			<em><label for="tld-wpeti-intent-animation"></label>Choose animation</em>
-		</p>
+					?>
+				</select>
+			</div>
+		</div>
 
-		<select name="tld-wpeti-intent-animation">
-			<?php
-
-			$selected = get_post_meta( get_the_ID(), 'tld_wpeti_intent_animation', true );
-			foreach ( $animations as $animation_nn => $animation ){
-
-				if ( $selected == $animation ){
-					echo '<option value="' . $animation . '" selected>'. $animation_nn . '</option>';
-				}else{
-					echo '<option value="' . $animation . '">'. $animation_nn . '</option>';
-				}
-
-			}
-
-			?>
-		</select>
+		<div class="tld-wpeti-clearfix"></div>
 
 	</div>
 
@@ -153,7 +206,7 @@ function tld_wpeti_metabox_fields(){
 }
 
 function tld_wpeti_save_data( $post_id ){
-
+	//below throws an error
 	if ( define( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 	return;
 
@@ -161,20 +214,68 @@ function tld_wpeti_save_data( $post_id ){
 		return;
 	}
 
-	//try commenting below
-	$intent_mask = sanitize_text_field( $_POST['tld-wpeti-intent-mask'] );
-	$intent_text = sanitize_text_field( $_POST['tld-wpeti-intent-text'] );
-	$intent_paragraph = sanitize_text_field( $_POST['tld-wpeti-intent-paragraph'] );
-	$intent_animation = sanitize_text_field( $_POST['tld-wpeti-intent-animation'] );
+	$intent_mask = sanitize_text_field( isset( $_POST['tld-wpeti-intent-mask'] ) ? $_POST['tld-wpeti-intent-mask'] : '' );
+	$intent_text = sanitize_text_field( isset( $_POST['tld-wpeti-intent-text'] ) ? $_POST['tld-wpeti-intent-text'] : '' );
+	$intent_paragraph = sanitize_text_field( isset( $_POST['tld-wpeti-intent-paragraph'] ) ? $_POST['tld-wpeti-intent-paragraph'] : '' );
+	$intent_animation = sanitize_text_field( isset( $_POST['tld-wpeti-intent-animation'] ) ? $_POST['tld-wpeti-intent-animation'] : '' );
+	$intent_animation_duration = sanitize_text_field( isset( $_POST['tld-wpeti-animation-duration'] ) ? $_POST['tld-wpeti-animation-duration'] : '' );
+	$intent_animation_delay = sanitize_text_field( isset( $_POST['tld-wpeti-animation-delay'] ) ? $_POST['tld-wpeti-animation-delay'] : '' );
+	$intent_template = sanitize_text_field( isset( $_POST['tld-wpeti-intent-template'] ) ? $_POST['tld-wpeti-intent-template'] : '' );
 
 	update_post_meta( $post_id, 'tld_wpeti_intent_mask', $intent_mask );
 	update_post_meta( $post_id, 'tld_wpeti_intent_text', $intent_text );
 	update_post_meta( $post_id, 'tld_wpeti_intent_paragraph', $intent_paragraph );
 	update_post_meta( $post_id, 'tld_wpeti_intent_animation', $intent_animation );
+	update_post_meta( $post_id, 'tld_wpeti_animation_duration', $intent_animation_duration );
+	update_post_meta( $post_id, 'tld_wpeti_animation_delay', $intent_animation_delay );
+	update_post_meta( $post_id, 'tld_wpeti_intent_template', $intent_template );
 
 	//ADD NOUNCE FIELD FOR SECURITY
 
 }
+
+function tld_wpeti_append_animation_settings(){
+	//add conditionals for if empty
+	if ( is_singular( 'post' ) ){
+
+		$tld_wpeti_fr_animation_duration = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_animation_duration', true ) );
+		$tld_wpeti_fr_animation_delay = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_animation_delay', true ) );
+
+		if ( !empty( $tld_wpeti_fr_animation_duration && $tld_wpeti_fr_animation_delay ) ){
+
+			$tld_wpeti_fr_animation_duration =	$tld_wpeti_fr_animation_duration . "s";
+			$tld_wpeti_fr_animation_delay =	$tld_wpeti_fr_animation_delay . "s";
+
+			$tld_wpeti_vendor_webkit_duration = "-webkit-animation-duration:" . $tld_wpeti_fr_animation_duration . ";";
+			$tld_wpeti_vendor_moz_duration = "-moz-animation-duration:" . $tld_wpeti_fr_animation_duration . ";";
+			$tld_wpeti_vendor_o_duration = "-o-animation-duration:" . $tld_wpeti_fr_animation_duration . ";";
+			$tld_wpeti_vendor_default_duration = "animation-duration:" . $tld_wpeti_fr_animation_duration . ";";
+			$tld_wpeti_vendor_webkit_delay = "-webkit-animation-delay:" . $tld_wpeti_fr_animation_delay . ";";
+			$tld_wpeti_vendor_moz_delay = "-moz-animation-delay:" . $tld_wpeti_fr_animation_delay . ";";
+			$tld_wpeti_vendor_o_delay = "-o-animation-delay:" . $tld_wpeti_fr_animation_delay . ";";
+			$tld_wpeti_vendor_default_delay = "animation-delay:" . $tld_wpeti_fr_animation_delay . ";";
+			global $tld_wpeti_fr_animation_settings;
+			$tld_wpeti_fr_animation_settings = $tld_wpeti_vendor_webkit_duration . $tld_wpeti_vendor_moz_duration . $tld_wpeti_vendor_o_duration . $tld_wpeti_vendor_default_duration . $tld_wpeti_vendor_webkit_delay . $tld_wpeti_vendor_moz_delay . $tld_wpeti_vendor_o_delay . $tld_wpeti_vendor_default_delay;
+
+		}
+
+	}
+
+}
+
+add_action('wp', 'tld_wpeti_append_animation_settings');
+
+function tld_wpeti_set_fr_animation(){
+
+	global $tld_wpeti_fr_animation_settings;
+	if ( !empty ( $tld_wpeti_fr_animation_settings ) ){
+		$tld_wpeti_fr_animation_set = '<style>#tld-tweet-container{'.$tld_wpeti_fr_animation_settings.'}</style>';
+		echo $tld_wpeti_fr_animation_set;
+	}
+
+}
+
+add_action('wp_head','tld_wpeti_set_fr_animation');
 
 function add_tweet_intent(){
 
@@ -182,17 +283,13 @@ function add_tweet_intent(){
 
 	if ( $has_run == 'no' ){
 
-
-		//	$active = get_field('add_inline_tweet');
-
-		//	if ( $active == "yes" ){
-
-		add_filter( 'the_content', 'tld_insert_post_tweet' );
-		// Parent Function that makes the magic happen
+		if ( is_singular( 'post' ) ){
+			add_filter( 'the_content', 'tld_insert_post_tweet' );
+		}
 
 		function tld_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
 			$closing_p = '</p>';
-			$paragraphs = explode( $closing_p, $content );
+			$paragraphs = explode( $closing_p, do_shortcode( $content ) );
 			foreach ($paragraphs as $index => $paragraph) {
 
 				if ( trim( $paragraph ) ) {
@@ -210,25 +307,30 @@ function add_tweet_intent(){
 			$tld_wpeti_fr_intent_text = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_text', true ) );
 			$tld_wpeti_fr_intent_text = rawurlencode( $tld_wpeti_fr_intent_text );
 			$after_paragraph = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_paragraph', true ) );
+			$tld_wpeti_fr_template = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_template', true ) );
+			$tld_wpeti_fr_template = $tld_wpeti_fr_template;
 			$tld_wpeti_fr_animation = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_animation', true ) );
-			$tld_wpeti_fr_animation .= " animated";
-			$tld_wpeti_fr_animation .= " infinite";
+			$tld_wpeti_fr_animation = " " . $tld_wpeti_fr_animation;
+			$tld_wpeti_fr_classes = $tld_wpeti_fr_template;
+			$tld_wpeti_fr_classes .= $tld_wpeti_fr_animation;
+			$tld_wpeti_fr_classes .= " animated";
+			$tld_wpeti_fr_classes .= " infinite ";
 
-		$tweet_container = '
-		<div id="tld-tweet-container" class="'.$tld_wpeti_fr_animation.'">
-		<a id="tld-tweet-text" href="https://twitter.com/intent/tweet?text='.$tld_wpeti_fr_intent_text.'" target="_blank">Tweet: '.$tld_wpeti_fr_intent_mask.'
+			$tweet_container = '
+			<a id="tld-tweet-text" href="https://twitter.com/intent/tweet?text='.$tld_wpeti_fr_intent_text.'" target="_blank">
+			<div id="tld-tweet-container" class="'.$tld_wpeti_fr_classes.'">
 
-		<div id="tld-tweet-icon-container"><img id="tld-tweet-icon-img" src="" alt="" /></div>
+			<p>Tweet: '.$tld_wpeti_fr_intent_mask.'</p>
 
-		</a>
-		</div>';
+			</div>
+			</a>';
 
-		if ( (is_single() && ! is_admin()) ) {
-			echo tld_insert_after_paragraph( $tweet_container, $after_paragraph, $content );
+			if ( is_singular( 'post' ) && ! is_admin() ) {
+				echo tld_insert_after_paragraph( $tweet_container, $after_paragraph, $content );
+			}
 		}
+		$has_run = 'yes';
 	}
-	$has_run = 'yes';
-}
 }
 //}
 
