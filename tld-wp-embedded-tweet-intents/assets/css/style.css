@@ -1,7 +1,9 @@
+/*== Front End ==*/
+
 #tld-tweet-container{
   text-align: center;
-  padding: 30px;
-  margin-bottom:15px;
+  padding: 20px 0 20px 0;
+  margin-bottom: 15px;
 }
 
 a#tld-tweet-text {
@@ -12,33 +14,65 @@ a#tld-tweet-text:hover {
   color: currentColor;
 }
 
-#tld-tweet-container p:hover{
-  color: red !important;
-}
 #tld-tweet-container p{
-  font-family: 'Lobster Two';
-  margin: 0;
+  margin: 0 0 20px 0;
   text-align: center;
-  font-size: 40px
+  font-size: 20px;
 }
 
-/*#tld-tweet-text:hover{
-color:#C60ED7;
-text-decoration: none;
-}*/
+#tld-tweet-container.lobster-two p{
+  font-family: 'Lobster Two';
+}
+
+#tld-tweet-container.raleway p{
+  font-family: 'Raleway';
+}
+
+#tld-tweet-container.titillium-web p{
+  font-family: 'Titillium Web';
+}
+
+#tld-tweet-container.indie-flower p{
+  font-family: 'Indie Flower';
+}
+
+#tld-tweet-container.inherit p{
+  font-family: inherit;
+}
+
+/*== Templates ==*/
+
+/*=== Default ===*/
+
+.tld-default{
+  padding: 30px !important;
+}
 
 
-/*=== Templates ===*/
+/*=== Twitter default ===*/
+.tld-default-twitter{
+  background: #55acee;
+  color: #fff;
+  border-radius: 8px;
+}
 
+.tld-default-twitter a{
+  color: #fff;
+}
+
+#tld-tweet-container .icon-twitter{
+  margin-left: 10px;
+}
+
+/*=== Minimalist ===*/
 .tld-minimalist{
-  padding: 30px !important;
   border: 2px solid #000 !important;
   border-radius: 10px;
 }
 
-.tld-minimalist-2{
-  padding: 30px !important;
-  border: 2px solid #000 !important;
+/*=== Border Dashed ===*/
+
+.tld-border-dashed{
+  border: 2px dashed #000 !important;
   border-radius: 10px;
-  background: gray !important;
 }

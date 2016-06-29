@@ -3,10 +3,10 @@
 Plugin Name: TLD WordPress Embedded Tweet Intents
 Plugin URI: http://soaringleads.com
 Description: A plugin for inserting tweet intents directly into posts after any paragraph.
-Version: 1.1.0-beta
+Version: 1.2.0-beta
 Author: Uriahs Victor
 Author URI: http://soaringleads.com
-License: GPL2
+License: GPLv2
 */
 
 
@@ -24,12 +24,19 @@ add_action( 'save_post', 'tld_wpeti_save_data' );
 * Register style sheet.
 */
 function tld_wpeti_load_intents_assets() {
-	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . '/assets/css/style.css?v1.0.22' );
+	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . '/assets/css/style.css?v1.0.39' );
+	wp_register_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . '/assets/css/icomoon.css' );
 	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . '/assets/css/animate.min.css?v3.5.2' );
 	wp_enqueue_style( 'tld-tweet-intents' );
+	wp_enqueue_style( 'tld-tweet-icomoon' );
 	wp_enqueue_style( 'tld-tweet-intents-animate' );
 	wp_enqueue_style( 'tld-lobster-font', 'https://fonts.googleapis.com/css?family=Lobster+Two' );
+	wp_enqueue_style( 'tld-raleway-font', 'https://fonts.googleapis.com/css?family=Raleway' );
+	wp_enqueue_style( 'tld-indie-font', 'https://fonts.googleapis.com/css?family=Indie+Flower' );
+	wp_enqueue_style( 'tld-titillium-font', 'https://fonts.googleapis.com/css?family=Titillium+Web' );
 }
+
+//only enqueue fonts if selected by post
 
 function tld_wpeti_load_admin_assets(){
 	wp_register_style( 'tld_wpeti_styles',  plugin_dir_url( __FILE__ ) . '/assets/css/admin.css?v1.0.14' );
@@ -59,11 +66,8 @@ function tld_wpeti_intent_animations(){
 		"None"				=> "",
 		"Pulse"				=> "pulse",
 		"Bounce"			=> "bounce",
-		"Swing"				=> "swing",
-		"Tada"				=> "tada",
-		"Wobble"			=> "wobble",
-		"Rotate In"		=> "rotateIn",
-		"Light Speed In" => "lightSpeedIn"
+		"Rubber Band"	=> "rubberBand",
+		"Jello"				=> "jello",
 	);
 
 }
@@ -72,8 +76,21 @@ function tld_wpeti_intent_templates(){
 	global $templates;
 	$templates = array(
 		"Default"				=> "tld-default",
+		"Twitter"				=> "tld-default-twitter",
 		"Minimalist"		=> "tld-minimalist",
-		"Minimalist 2"		=> "tld-minimalist-2",
+		"Dashed border" => "tld-border-dashed"
+	);
+
+}
+
+function tld_wpeti_intent_fonts(){
+	global $fonts;
+	$fonts = array(
+		"Inherit" 			=> "inherit",
+		"Raleway"				=> "raleway",
+		"Lobster Two"		=> "lobster-two",
+		"Indie Flower"	=> "indie-flower",
+		"Titillium Web"	=> "titillium-web"
 	);
 
 }
@@ -176,7 +193,7 @@ function tld_wpeti_metabox_fields(){
 				<p>
 					<em><label for="tld-wpeti-intent-template"></label>Choose template</em>
 				</p>
-				<span><em>Choose template for this tweet.</em></span>
+				<span><em>Choose template for this tweet intent.</em></span>
 			</div>
 			<div>
 				<select name="tld-wpeti-intent-template">
@@ -189,6 +206,36 @@ function tld_wpeti_metabox_fields(){
 							echo '<option value="' . $template . '" selected>'. $template_nn . '</option>';
 						}else{
 							echo '<option value="' . $template. '">'. $template_nn . '</option>';
+						}
+
+					}
+
+					?>
+				</select>
+			</div>
+		</div>
+
+		<div class="tld-wpeti-clearfix"></div>
+
+		<div class="tld-wpeti-meta-font-style">
+			<div>
+				<?php tld_wpeti_intent_fonts(); global $fonts; ?>
+				<p>
+					<em><label for="tld-wpeti-intent-font"></label>Choose font</em>
+				</p>
+				<span><em>Choose font for this tweet intent.</em></span>
+			</div>
+			<div>
+				<select name="tld-wpeti-intent-font">
+					<?php
+
+					$selected_font = get_post_meta( get_the_ID(), 'tld_wpeti_intent_font', true );
+					foreach ( $fonts as $font_nn => $font ){
+
+						if ( $selected_font == $font ){
+							echo '<option value="' . $font . '" selected>'. $font_nn . '</option>';
+						}else{
+							echo '<option value="' . $font. '">'. $font_nn . '</option>';
 						}
 
 					}
@@ -221,6 +268,7 @@ function tld_wpeti_save_data( $post_id ){
 	$intent_animation_duration = sanitize_text_field( isset( $_POST['tld-wpeti-animation-duration'] ) ? $_POST['tld-wpeti-animation-duration'] : '' );
 	$intent_animation_delay = sanitize_text_field( isset( $_POST['tld-wpeti-animation-delay'] ) ? $_POST['tld-wpeti-animation-delay'] : '' );
 	$intent_template = sanitize_text_field( isset( $_POST['tld-wpeti-intent-template'] ) ? $_POST['tld-wpeti-intent-template'] : '' );
+	$intent_font = sanitize_text_field( isset( $_POST['tld-wpeti-intent-font'] ) ? $_POST['tld-wpeti-intent-font'] : '' );
 
 	update_post_meta( $post_id, 'tld_wpeti_intent_mask', $intent_mask );
 	update_post_meta( $post_id, 'tld_wpeti_intent_text', $intent_text );
@@ -229,6 +277,7 @@ function tld_wpeti_save_data( $post_id ){
 	update_post_meta( $post_id, 'tld_wpeti_animation_duration', $intent_animation_duration );
 	update_post_meta( $post_id, 'tld_wpeti_animation_delay', $intent_animation_delay );
 	update_post_meta( $post_id, 'tld_wpeti_intent_template', $intent_template );
+	update_post_meta( $post_id, 'tld_wpeti_intent_font', $intent_font );
 
 	//ADD NOUNCE FIELD FOR SECURITY
 
@@ -263,7 +312,7 @@ function tld_wpeti_append_animation_settings(){
 
 }
 
-add_action('wp', 'tld_wpeti_append_animation_settings');
+add_action('wp', 'tld_wpeti_append_animation_settings'); //maybe use different hook, mayone one for single posts
 
 function tld_wpeti_set_fr_animation(){
 
@@ -308,22 +357,24 @@ function add_tweet_intent(){
 			$tld_wpeti_fr_intent_text = rawurlencode( $tld_wpeti_fr_intent_text );
 			$after_paragraph = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_paragraph', true ) );
 			$tld_wpeti_fr_template = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_template', true ) );
-			$tld_wpeti_fr_template = $tld_wpeti_fr_template;
+			$tld_wpeti_fr_template = $tld_wpeti_fr_template; //maybe delete this
 			$tld_wpeti_fr_animation = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_animation', true ) );
+			$tld_wpeti_fr_font = esc_attr( get_post_meta( get_the_ID(), 'tld_wpeti_intent_font', true ) );
 			$tld_wpeti_fr_animation = " " . $tld_wpeti_fr_animation;
+			$tld_wpeti_fr_font = " " . $tld_wpeti_fr_font;
 			$tld_wpeti_fr_classes = $tld_wpeti_fr_template;
 			$tld_wpeti_fr_classes .= $tld_wpeti_fr_animation;
+			$tld_wpeti_fr_classes .= $tld_wpeti_fr_font;
 			$tld_wpeti_fr_classes .= " animated";
 			$tld_wpeti_fr_classes .= " infinite ";
 
 			$tweet_container = '
-			<a id="tld-tweet-text" href="https://twitter.com/intent/tweet?text='.$tld_wpeti_fr_intent_text.'" target="_blank">
+
 			<div id="tld-tweet-container" class="'.$tld_wpeti_fr_classes.'">
 
-			<p>Tweet: '.$tld_wpeti_fr_intent_mask.'</p>
-
-			</div>
-			</a>';
+			<p>'.$tld_wpeti_fr_intent_mask.'</p>
+			<a id="tld-tweet-text" href="https://twitter.com/intent/tweet?text='.$tld_wpeti_fr_intent_text.'" target="_blank">Click to tweet</a><span class="icon-twitter"></span>
+			</div>';
 
 			if ( is_singular( 'post' ) && ! is_admin() ) {
 				echo tld_insert_after_paragraph( $tweet_container, $after_paragraph, $content );
@@ -332,6 +383,6 @@ function add_tweet_intent(){
 		$has_run = 'yes';
 	}
 }
-//}
+
 
 ?>
