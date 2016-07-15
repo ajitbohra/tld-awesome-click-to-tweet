@@ -1,42 +1,79 @@
 /*== Front End ==*/
 
-#tld-tweet-container{
+#tld-wpeti-tweet-container{
   text-align: center;
-  padding: 20px 0 20px 0;
+  padding-top: 10px;
   margin-bottom: 15px;
 }
 
-a#tld-tweet-text {
-  text-decoration: none;
-}
-
-a#tld-tweet-text:hover {
-  color: currentColor;
-}
-
-#tld-tweet-container p{
+#tld-wpeti-tweet-container p{
+  padding: 0 20px;
   margin: 0 0 20px 0;
   text-align: center;
+  font-size: 30px;
+  line-height: 1.5
+}
+
+#tld-wpeti-tweet-container .tld-wpeti-white-btn-text a{
+  color: #fff;
   font-size: 20px;
 }
 
-#tld-tweet-container.lobster-two p{
+#tld-wpeti-tweet-container .tld-wpeti-btn-full{
+  background: #55acee;
+  padding: 20px;
+}
+
+#tld-wpeti-tweet-container .tld-wpeti-btn-default{
+  background: #55acee;
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+}
+
+#tld-wpeti-tweet-container .tld-wpeti-tweet-text{
+  padding-bottom: 20px;
+}
+
+#tld-wpeti-tweet-container .tld-wpeti-tweet-text a{
+  text-decoration: none;
+  border-bottom: none;
+}
+
+#tld-wpeti-tweet-container .tld-wpeti-tweet-text a:hover {
+  color: #fff;
+}
+
+#tld-wpeti-tweet-container .tld-wpeti-tweet-text .icon-twitter{
+  color: #fff;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+/*=== Fonts ===*/
+
+#tld-wpeti-tweet-container.lobster-two p{
   font-family: 'Lobster Two';
 }
 
-#tld-tweet-container.raleway p{
+#tld-wpeti-tweet-container.raleway p{
   font-family: 'Raleway';
 }
 
-#tld-tweet-container.titillium-web p{
+#tld-wpeti-tweet-container.titillium-web p{
   font-family: 'Titillium Web';
 }
 
-#tld-tweet-container.indie-flower p{
+#tld-wpeti-tweet-container.indie-flower p{
   font-family: 'Indie Flower';
 }
 
-#tld-tweet-container.inherit p{
+#tld-wpeti-tweet-container.poiret-one p{
+  font-family: 'Poiret One';
+}
+
+/*might be uneeded*/
+#tld-wpeti-tweet-container.inherit p{
   font-family: inherit;
 }
 
@@ -60,19 +97,22 @@ a#tld-tweet-text:hover {
   color: #fff;
 }
 
-#tld-tweet-container .icon-twitter{
-  margin-left: 10px;
-}
-
 /*=== Minimalist ===*/
-.tld-minimalist{
+.tld-wpeti-minimalist{
   border: 2px solid #000 !important;
   border-radius: 10px;
+  background: #fff;
 }
 
 /*=== Border Dashed ===*/
 
-.tld-border-dashed{
+.tld-wpeti-border-dashed{
   border: 2px dashed #000 !important;
   border-radius: 10px;
+}
+
+/*=== Template 1 ===*/
+
+.tld-wpeti-t1{
+  background: #fff;
 }
