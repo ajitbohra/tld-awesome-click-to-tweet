@@ -1,11 +1,9 @@
 <?php
 /*
 Plugin Name: TLD WordPress Embedded Tweet Intents
-Plugin URI: http://soaringleads.com
 Description: A plugin for inserting tweet intents directly into posts after any paragraph.
-Version: 2.0.0-beta
+Version: 2.0.1-beta
 Author: Uriahs Victor
-Author URI: http://soaringleads.com
 License: GPLv2
 */
 
@@ -13,7 +11,6 @@ License: GPLv2
 defined( 'ABSPATH' ) or die( 'But why!?' );
 
 add_action( 'wp_enqueue_scripts', 'tld_wpeti_load_intents_assets' );
-add_action( 'admin_enqueue_scripts', 'tld_wpeti_load_admin_assets' );
 
 /**
 * Register style sheet.
@@ -32,21 +29,13 @@ function tld_wpeti_load_intents_assets() {
 	wp_enqueue_style( 'tld-alegreya-font', 'https://fonts.googleapis.com/css?family=Poiret+One' );
 }
 
-//only enqueue fonts if selected by post
-
-function tld_wpeti_load_admin_assets(){
-	wp_register_style( 'tld_wpeti_styles',  plugin_dir_url( __FILE__ ) . 'assets/css/admin.css?v1.0.14' );
-	wp_enqueue_style( 'tld_wpeti_styles' );
-}
-
-
 function tld_wpeti_shortcode( $atts, $content = null ){
 
 	$atts = shortcode_atts( array(
 
 		'mask' 			=> '',
 		'tweet'			=> '',
-		'btn'				=> 'Tweet Now',
+		'btn-text'	=> 'Tweet Now',
 		'anim'			=> 'pulse',
 		'duration'	=> ' 5',
 		'delay'			=> ' 5',
@@ -60,7 +49,7 @@ function tld_wpeti_shortcode( $atts, $content = null ){
 
 	$the_mask 		= $atts['mask'];
 	$the_tweet 		= rawurlencode($atts['tweet']);
-	$the_btn_text = $atts['btn'];
+	$the_btn_text = $atts['btn-text'];
 	$the_anim 		= $atts['anim'];
 	$the_duration = $atts['duration'];
 	$the_delay 		= $atts['delay'];
@@ -95,6 +84,7 @@ function tld_wpeti_shortcode( $atts, $content = null ){
 		default:
 		$the_template = ' tld-wpeti-minimalist';
 		break;
+		
 	}
 
 
