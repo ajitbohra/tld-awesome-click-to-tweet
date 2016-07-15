@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLD WordPress Embedded Tweet Intents
 Description: A plugin for inserting tweet intents directly into posts after any paragraph.
-Version: 2.0.1-beta
+Version: 3.0.0-beta
 Author: Uriahs Victor
 License: GPLv2
 */
@@ -84,7 +84,7 @@ function tld_wpeti_shortcode( $atts, $content = null ){
 		default:
 		$the_template = ' tld-wpeti-minimalist';
 		break;
-		
+
 	}
 
 
