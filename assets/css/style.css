@@ -1,12 +1,12 @@
 /*== Front End ==*/
 
-#tld-wpeti-tweet-container{
+#tld-actt-tweet-container{
   text-align: center;
   padding-top: 10px;
   margin-bottom: 15px;
 }
 
-#tld-wpeti-tweet-container p{
+#tld-actt-tweet-container p{
   padding: 0 20px;
   margin: 0 0 20px 0;
   text-align: center;
@@ -14,37 +14,37 @@
   line-height: 1.5
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-white-btn-text a{
+#tld-actt-tweet-container .tld-actt-white-btn-text a{
   color: #fff;
   font-size: 20px;
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-btn-full{
+#tld-actt-tweet-container .tld-actt-btn-full{
   background: #55acee;
   padding: 20px;
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-btn-default{
+#tld-actt-tweet-container .tld-actt-btn-default{
   background: #55acee;
   border-radius: 4px;
   color: #fff;
   padding: 10px;
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-tweet-text{
+#tld-actt-tweet-container .tld-actt-tweet-text{
   padding-bottom: 20px;
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-tweet-text a{
+#tld-actt-tweet-container .tld-actt-tweet-text a{
   text-decoration: none;
   border-bottom: none;
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-tweet-text a:hover {
+#tld-actt-tweet-container .tld-actt-tweet-text a:hover {
   color: #fff;
 }
 
-#tld-wpeti-tweet-container .tld-wpeti-tweet-text .icon-twitter{
+#tld-actt-tweet-container .tld-actt-tweet-text .icon-twitter{
   color: #fff;
   margin-left: 10px;
   font-size: 20px;
@@ -52,28 +52,28 @@
 
 /*=== Fonts ===*/
 
-#tld-wpeti-tweet-container.lobster-two p{
+#tld-actt-tweet-container.lobster-two p{
   font-family: 'Lobster Two';
 }
 
-#tld-wpeti-tweet-container.raleway p{
+#tld-actt-tweet-container.raleway p{
   font-family: 'Raleway';
 }
 
-#tld-wpeti-tweet-container.titillium-web p{
-  font-family: 'Titillium Web';
+#tld-actt-tweet-container.titillium-web p{
+  font-family: 'Titillium Web' !important;
 }
 
-#tld-wpeti-tweet-container.indie-flower p{
-  font-family: 'Indie Flower';
+#tld-actt-tweet-container.indie-flower p{
+  font-family: 'Indie Flower' !important;
 }
 
-#tld-wpeti-tweet-container.poiret-one p{
-  font-family: 'Poiret One';
+#tld-actt-tweet-container.poiret-one p{
+  font-family: 'Poiret One' !important;
 }
 
 /*might be uneeded*/
-#tld-wpeti-tweet-container.inherit p{
+#tld-actt-tweet-container.inherit p{
   font-family: inherit;
 }
 
@@ -98,7 +98,7 @@
 }
 
 /*=== Minimalist ===*/
-.tld-wpeti-minimalist{
+.tld-actt-minimalist{
   border: 2px solid #000 !important;
   border-radius: 10px;
   background: #fff;
@@ -106,13 +106,13 @@
 
 /*=== Border Dashed ===*/
 
-.tld-wpeti-border-dashed{
+.tld-actt-border-dashed{
   border: 2px dashed #000 !important;
   border-radius: 10px;
 }
 
 /*=== Template 1 ===*/
 
-.tld-wpeti-t1{
+.tld-actt-bbutton{
   background: #fff;
 }

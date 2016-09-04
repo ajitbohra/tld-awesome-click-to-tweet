@@ -1,21 +1,23 @@
 <?php
 /*
-Plugin Name: TLD WordPress Embedded Tweet Intents
-Description: A plugin for inserting tweet intents directly into posts after any paragraph.
-Version: 3.0.0-beta
+Plugin Name: TLD Awesome Click To Tweet
+Description: A plugin for inserting tweet intents directly into posts or pages after any paragraph.
+Version: 1.0.0
 Author: Uriahs Victor
-License: GPLv2
+Author URI: http://uriahsvictor.com
+License: GPLv2 or later
 */
 
 
 defined( 'ABSPATH' ) or die( 'But why!?' );
 
-add_action( 'wp_enqueue_scripts', 'tld_wpeti_load_intents_assets' );
+
+include dirname( __FILE__ )  . '/includes/tinymce_button.php';
 
 /**
 * Register style sheet.
 */
-function tld_wpeti_load_intents_assets() {
+function tld_actt_load_intents_assets() {
 	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?'.time() );
 	wp_register_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
 	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
@@ -28,8 +30,16 @@ function tld_wpeti_load_intents_assets() {
 	wp_enqueue_style( 'tld-titillium-font', 'https://fonts.googleapis.com/css?family=Titillium+Web' );
 	wp_enqueue_style( 'tld-alegreya-font', 'https://fonts.googleapis.com/css?family=Poiret+One' );
 }
+add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' );
 
-function tld_wpeti_shortcode( $atts, $content = null ){
+function tld_actt_admin_css(){
+
+	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( '/assets/css/admin.css?'.time() ) );
+
+}
+add_action( 'admin_enqueue_scripts', 'tld_actt_admin_css' );
+
+function tld_actt_shortcode( $atts, $content = null ){
 
 	$atts = shortcode_atts( array(
 
@@ -45,81 +55,140 @@ function tld_wpeti_shortcode( $atts, $content = null ){
 
 
 
-	), $atts, 'wpeti' );
+	), $atts, 'actt' );
 
-	$the_mask 		= $atts['mask'];
-	$the_tweet 		= rawurlencode($atts['tweet']);
-	$the_btn_text = $atts['btn-text'];
-	$the_anim 		= $atts['anim'];
-	$the_duration = $atts['duration'];
-	$the_delay 		= $atts['delay'];
-	$the_infinite = $atts['infinite'];
-	$the_template = $atts['template'];
-	$the_font			= ' '. $atts['font'];
+	$the_actt_mask 		= $atts['mask'];
+	$the_actt_tweet 		= rawurlencode($atts['tweet']);
+	$the_actt_btn_text = $atts['btn-text'];
+	$the_actt_anim 		= $atts['anim'];
+	$the_actt_duration = $atts['duration'];
+	$the_actt_delay 		= $atts['delay'];
+	$the_actt_infinite = $atts['infinite'];
+	$the_actt_template = $atts['template'];
+	$the_actt_font			= ' '. $atts['font'];
 
-	$the_animation_duration =	$the_duration . "s";
-	$the_animation_delay =	$the_delay . "s";
+	//Only do below if anim variable not empty
 
-	$tld_wpeti_vendor_webkit_duration = "-webkit-animation-duration:" . $the_animation_duration . ";";
-	$tld_wpeti_vendor_moz_duration = "-moz-animation-duration:" . $the_animation_duration . ";";
-	$tld_wpeti_vendor_o_duration = "-o-animation-duration:" . $the_animation_duration . ";";
-	$tld_wpeti_vendor_default_duration = "animation-duration:" . $the_animation_duration . ";";
-	$tld_wpeti_vendor_webkit_delay = "-webkit-animation-delay:" . $the_animation_delay . ";";
-	$tld_wpeti_vendor_moz_delay = "-moz-animation-delay:" . $the_animation_delay . ";";
-	$tld_wpeti_vendor_o_delay = "-o-animation-delay:" . $the_animation_delay . ";";
-	$tld_wpeti_vendor_default_delay = "animation-delay:" . $the_animation_delay . ";";
+	if ( $the_actt_anim != 'none'  ){
 
-	$the_animation_settings = $tld_wpeti_vendor_webkit_duration . $tld_wpeti_vendor_moz_duration . $tld_wpeti_vendor_o_duration . $tld_wpeti_vendor_default_duration . $tld_wpeti_vendor_webkit_delay . $tld_wpeti_vendor_moz_delay . $tld_wpeti_vendor_o_delay . $tld_wpeti_vendor_default_delay;
+		$the_actt_animation_duration =	$the_actt_duration . "s";
+		$the_actt_animation_delay =	$the_actt_delay . "s";
 
-	switch ( $the_template ) {
+		$tld_actt_vendor_webkit_duration = "-webkit-animation-duration:" . $the_actt_animation_duration . ";";
+		$tld_actt_vendor_moz_duration = "-moz-animation-duration:" . $the_actt_animation_duration . ";";
+		$tld_actt_vendor_o_duration = "-o-animation-duration:" . $the_actt_animation_duration . ";";
+		$tld_actt_vendor_default_duration = "animation-duration:" . $the_actt_animation_duration . ";";
+		$tld_actt_vendor_webkit_delay = "-webkit-animation-delay:" . $the_actt_animation_delay . ";";
+		$tld_actt_vendor_moz_delay = "-moz-animation-delay:" . $the_actt_animation_delay . ";";
+		$tld_actt_vendor_o_delay = "-o-animation-delay:" . $the_actt_animation_delay . ";";
+		$tld_actt_vendor_default_delay = "animation-delay:" . $the_actt_animation_delay . ";";
+
+		$the_actt_animation_settings = $tld_actt_vendor_webkit_duration . $tld_actt_vendor_moz_duration . $tld_actt_vendor_o_duration . $tld_actt_vendor_default_duration . $tld_actt_vendor_webkit_delay . $tld_actt_vendor_moz_delay . $tld_actt_vendor_o_delay . $tld_actt_vendor_default_delay;
+	}
+	switch ( $the_actt_template ) {
+
+		case 'bbutton':
+		$the_actt_template = ' tld-actt-bbutton';
+		break;
 
 		case 'dashed':
-		$the_template = ' tld-wpeti-border-dashed';
+		$the_actt_template = ' tld-actt-border-dashed';
 		break;
 
-		case 't1':
-		$the_template = ' tld-wpeti-t1';
+		case 'minimalist':
+		$the_actt_template = ' tld-actt-minimalist';
 		break;
 
 		default:
-		$the_template = ' tld-wpeti-minimalist';
+		$the_actt_template = ' tld-actt-minimalist';
 		break;
 
 	}
 
 
-	$the_classes	= 'animated ';
-	$the_classes	.= $the_anim;
-	$the_classes	.= $the_infinite;
-	$the_classes	.= $the_template;
-	$the_classes	.= $the_font;
+	$the_actt_anim_classes	= 'animated ';
+	$the_actt_anim_classes	.= $the_actt_anim;
+	$the_actt_anim_classes	.= $the_actt_infinite;
 
-	switch ( $the_template ) {
-		case ' tld-wpeti-t1':
-		$tweet = '
-		<div id="tld-wpeti-tweet-container" class="'.esc_attr( $the_classes ).'" style="'.esc_attr( $the_animation_settings).'">
-		<p>'.wp_strip_all_tags( $the_mask . $content ).'</p>
-		<div class="tld-wpeti-tweet-text tld-wpeti-white-btn-text tld-wpeti-btn-full">
-		<a href="https://twitter.com/intent/tweet?text='.$the_tweet.'" target="_blank">'.wp_strip_all_tags( $the_btn_text ).'<span class="icon-twitter"></span></a>
-		</div>
-		</div>';
+	$the_actt_template_classes	= $the_actt_template;
+	$the_actt_template_classes	.= $the_actt_font;
+
+	switch ( $the_actt_template ) {
+		case ' tld-actt-bbutton':
+		if ( $the_actt_anim != 'none' ) {
+			$actt_tweet = '
+			<div id="tld-actt-tweet-container" class="'.esc_attr( $the_actt_anim_classes ) . esc_attr( $the_actt_template_classes ).'" style="'.esc_attr( $the_actt_animation_settings).'">
+			<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+			<div class="tld-actt-tweet-text tld-actt-white-btn-text tld-actt-btn-full">
+			<a href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
+			</div>
+			</div>';
+		}else{
+			$actt_tweet = '
+			<div id="tld-actt-tweet-container" class="'. esc_attr( $the_actt_template_classes ).'">
+			<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+			<div class="tld-actt-tweet-text tld-actt-white-btn-text tld-actt-btn-full">
+			<a href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
+			</div>
+			</div>';
+		}
+		break;
+
+		case ' tld-actt-border-dashed':
+		if ( $the_actt_anim != 'none' ) {
+			$actt_tweet = '
+			<div id="tld-actt-tweet-container" class="'.esc_attr( $the_actt_anim_classes ) . esc_attr( $the_actt_template_classes ).'" style="'.esc_attr( $the_actt_animation_settings).'">
+			<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+			<div class="tld-actt-tweet-text">
+			<a class="tld-actt-btn-default" href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
+			</div>
+			</div>';
+		}else{
+			$actt_tweet = '
+			<div id="tld-actt-tweet-container" class="'. esc_attr( $the_actt_template_classes ).'">
+			<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+			<div class="tld-actt-tweet-text">
+			<a class="tld-actt-btn-default" href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
+			</div>
+			</div>';
+		}
+		break;
+
+		case ' tld-actt-minimalist':
+		if ( $the_actt_anim != 'none' ) {
+			$actt_tweet = '
+			<div id="tld-actt-tweet-container" class="'.esc_attr( $the_actt_anim_classes ) . esc_attr( $the_actt_template_classes ).'" style="'.esc_attr( $the_actt_animation_settings).'">
+			<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+			<div class="tld-actt-tweet-text">
+			<a class="tld-actt-btn-default" href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
+			</div>
+			</div>';
+		}else{
+			$actt_tweet = '
+			<div id="tld-actt-tweet-container" class="'. esc_attr( $the_actt_template_classes ).'">
+			<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+			<div class="tld-actt-tweet-text">
+			<a class="tld-actt-btn-default" href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
+			</div>
+			</div>';
+		}
 		break;
 
 		default:
-		$tweet = '
-		<div id="tld-wpeti-tweet-container" class="'.esc_attr( $the_classes ).'" style="'.esc_attr( $the_animation_settings ).'">
-		<p>'.wp_strip_all_tags( $the_mask . $content ).'</p>
-		<div class="tld-wpeti-tweet-text">
-		<a class="tld-wpeti-btn-default" href="https://twitter.com/intent/tweet?text='.$the_tweet.'" target="_blank">'.wp_strip_all_tags( $the_btn_text ).'<span class="icon-twitter"></span></a>
+		$actt_tweet = '
+		<div id="tld-actt-tweet-container" class="'.esc_attr( $the_actt_template_classes ).'">
+		<p>'.wp_strip_all_tags( $the_actt_mask . $content ).'</p>
+		<div class="tld-actt-tweet-text">
+		<a class="tld-actt-btn-default" href="https://twitter.com/intent/tweet?text='.$the_actt_tweet.'" target="_blank"><span>'.wp_strip_all_tags( $the_actt_btn_text ).'</span><span class="icon-twitter"></span></a>
 		</div>
 		</div>';
 		break;
 	}
 
-	return $tweet;
+	return $actt_tweet;
 
 }
 
-add_shortcode( 'wpeti', 'tld_wpeti_shortcode' );
+add_shortcode( 'actt', 'tld_actt_shortcode' );
 
 ?>
