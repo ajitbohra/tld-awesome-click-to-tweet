@@ -3,19 +3,19 @@
 Contributors: uriahs-victor
 Plugin Name: TLD Awesome Click To Tweet
 Plugin URI: https://github.com/UVLabs/tld-awesome-click-to-tweet
-Tags: twitter, click to tweet, tweet intents, social media, social, tweet, twitter plugin, twitter widget, twitter boxes, tweet box, animated
+Tags: twitter, click to tweet, tweet intents, social media, social, tweet, twitter plugin, twitter widget, twitter boxes, tweet box, animated, customizable
 Author URI: http://uriahsvictor.com
 Author: Uriahs Victor (TheLoneDeveloper)
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 1.0.0
-Version: 1.0.0
+Stable tag: 1.0.1
+Version: 1.0.1
 License: GPLv2 of later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-A plugin for inserting tweet intents directly into posts or pages after any paragraph.
+A plugin for inserting customizable tweet intents directly into posts or pages after any paragraph!
 
 == Installation ==
 
@@ -27,11 +27,12 @@ A plugin for inserting tweet intents directly into posts or pages after any para
 
 == Screenshots ==
 
-1. Plugin UI on product page (button turned off).
-2. Plugin UI on product page (button turned on).
-3. Plugin Settings page.
-4. Update email sent to buyers of the product.
-5. Customable email body, more customization soon.
+1. Shortcode button
+2. Shortcode creation screen
+3. Templates
+4. Example template
+5. Another example template
+6. Actual tweet could be different than mask
 
 == Changelog ==
 
@@ -39,12 +40,24 @@ A plugin for inserting tweet intents directly into posts or pages after any para
 
 Initial release
 
+=1.0.1=
+
+Minor text fix
+
+=1.0.2=
+
+Removed time(); query string
+
 == Frequently Asked Questions ==
 
 More template?
 
 I'm currently working on adding more templates to the plugin.
 
-== Donations ==
+Animation only on scroll?
 
-Please use plugin's donate button on settings screen if you wish to donate, thank you.
+Yes, it's planned.
+
+More animations?
+
+Yes, planned.

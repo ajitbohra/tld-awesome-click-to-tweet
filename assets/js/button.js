@@ -31,13 +31,13 @@
           {
             type: 'textbox',
             name: 'duration',
-            label: 'Animation Duration',
+            label: 'Animation duration',
             maxLength: 1
           },
           {
             type: 'textbox',
             name: 'delay',
-            label: 'Animation Delay',
+            label: 'Animation delay',
             maxLength: 1
           },
           {

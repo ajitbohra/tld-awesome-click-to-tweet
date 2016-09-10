@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: TLD Awesome Click To Tweet
-Description: A plugin for inserting tweet intents directly into posts or pages after any paragraph.
-Version: 1.0.0
+Description: A plugin for inserting customizable tweet intents directly into posts or pages after any paragraph.
+Version: 1.0.2
 Author: Uriahs Victor
 Author URI: http://uriahsvictor.com
 License: GPLv2 or later
@@ -18,7 +18,7 @@ include dirname( __FILE__ )  . '/includes/tinymce_button.php';
 * Register style sheet.
 */
 function tld_actt_load_intents_assets() {
-	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?'.time() );
+	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' );
 	wp_register_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
 	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
 	wp_enqueue_style( 'tld-tweet-intents' );
@@ -34,7 +34,7 @@ add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' );
 
 function tld_actt_admin_css(){
 
-	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( '/assets/css/admin.css?'.time() ) );
+	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( '/assets/css/admin.css?v1.0.0' ) );
 
 }
 add_action( 'admin_enqueue_scripts', 'tld_actt_admin_css' );

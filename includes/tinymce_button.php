@@ -9,7 +9,7 @@ function tld_actt_add_tinymce_button(){
     return;
   }
 
-  //verify post tidy_parse_file
+  //verify post type
 
   if ( ! in_array( $typenow, array( 'post', 'page' ) ) )
     return;
@@ -33,7 +33,7 @@ add_action( 'admin_head', 'tld_actt_add_tinymce_button' );
 function tld_actt_add_tinymce_plugin( $plugin_array ){
 
 //button script path //change this to plugin dir
-$plugin_array['tld_actt_button'] = plugins_url( '../assets/js/button.js?'. time(), __FILE__ );
+$plugin_array['tld_actt_button'] = plugins_url( '../assets/js/button.js?v1.0.0', __FILE__ );
 return $plugin_array;
 
 }
