@@ -8,14 +8,17 @@ Author URI: http://uriahsvictor.com
 Author: Uriahs Victor (TheLoneDeveloper)
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 1.0.1
-Version: 1.0.1
+Stable tag: 1.0.2
+Version: 1.0.3
 License: GPLv2 of later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-A plugin for inserting customizable tweet intents directly into posts or pages after any paragraph!
+> The best click to tweet plugin. Insert customizable tweet boxes with customizable: fonts, templates, button text and animations.
+
+= Video Demo =
+https://www.youtube.com/watch?v=O5qip_FdjBo
 
 == Installation ==
 
@@ -47,6 +50,10 @@ Minor text fix
 =1.0.2=
 
 Removed time(); query string
+
+=1.0.3=
+
+Minor changes
 
 == Frequently Asked Questions ==
 
