@@ -8,7 +8,7 @@ Author URI: http://uriahsvictor.com
 Author: Uriahs Victor (TheLoneDeveloper)
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Version: 1.0.3
 License: GPLv2 of later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
