@@ -17,6 +17,7 @@
 #tld-actt-tweet-container .tld-actt-white-btn-text a{
   color: #fff;
   font-size: 20px;
+  text-decoration: none !important;
 }
 
 #tld-actt-tweet-container .tld-actt-btn-full{
@@ -36,7 +37,7 @@
 }
 
 #tld-actt-tweet-container .tld-actt-tweet-text a{
-  text-decoration: none;
+  text-decoration: none !important;
   border-bottom: none;
 }
 

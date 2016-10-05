@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLD Awesome Click To Tweet
 Description: Insert customizable animated or non-animated tweet boxes directly into posts or pages after any paragraph via shortcode.
-Version: 1.0.3
+Version: 1.0.4
 Author: Uriahs Victor
 Author URI: http://uriahsvictor.com
 License: GPLv2 or later
