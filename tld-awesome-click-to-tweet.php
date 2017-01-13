@@ -1,8 +1,9 @@
 <?php
 /*
-Plugin Name: TLD Awesome Click To Tweet
+Plugin Name: Awesome Click To Tweet
+Plugin URI: https://uriahsvictor.com/portfolio/tld-awesome-click-tweet/
 Description: Insert customizable animated or non-animated tweet boxes directly into posts or pages after any paragraph via shortcode.
-Version: 1.0.3
+Version: 1.0.4
 Author: Uriahs Victor
 Author URI: http://uriahsvictor.com
 License: GPLv2 or later
@@ -12,7 +13,8 @@ License: GPLv2 or later
 defined( 'ABSPATH' ) or die( 'But why!?' );
 
 
-include dirname( __FILE__ )  . '/includes/tinymce_button.php';
+include dirname( __FILE__ )  . '/includes/tld-actt-tinymce-button.php';
+include dirname( __FILE__ )  . '/includes/tld-actt-notice.php';
 
 /**
 * Register style sheet.
@@ -38,6 +40,35 @@ function tld_actt_admin_css(){
 
 }
 add_action( 'admin_enqueue_scripts', 'tld_actt_admin_css' );
+
+//setup review timer
+if ( function_exists( 'tld_actt_review_notice' ) ) {
+
+	register_activation_hook( __FILE__,  'tld_actt_set_review_trigger_date' );
+
+	/**
+	* Set Trigger Date.
+	*
+	* @since  1.0.0
+	*/
+	function tld_actt_set_review_trigger_date() {
+
+		// Number of days you want the notice delayed by.
+		$tld_actt_delayindays = 21;
+
+		// Create timestamp for when plugin was activated.
+		$tld_actt_triggerdate = mktime( 0, 0, 0, date('m')  , date('d') + $tld_actt_delayindays, date('Y') );
+
+		// If our option doesn't exist already, we'll create it with today's timestamp.
+		if ( ! get_option( 'tld_actt_activation_date') ) {
+			add_option( 'tld_actt_activation_date', $tld_actt_triggerdate, '', 'yes' );
+		}
+
+	}
+
+}
+
+
 
 function tld_actt_shortcode( $atts, $content = null ){
 
