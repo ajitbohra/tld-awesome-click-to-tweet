@@ -15,12 +15,13 @@ defined( 'ABSPATH' ) or die( 'But why!?' );
 
 include dirname( __FILE__ )  . '/includes/tld-actt-tinymce-button.php';
 include dirname( __FILE__ )  . '/includes/tld-actt-notice.php';
+include dirname( __FILE__ )  . '/includes/actt-media-button.php';
 
 /**
 * Register style sheet.
 */
 function tld_actt_load_intents_assets() {
-	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' );
+	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' . time() );
 	wp_register_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
 	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
 	wp_enqueue_style( 'tld-tweet-intents' );
@@ -30,16 +31,20 @@ function tld_actt_load_intents_assets() {
 	wp_enqueue_style( 'tld-raleway-font', 'https://fonts.googleapis.com/css?family=Raleway' );
 	wp_enqueue_style( 'tld-indie-font', 'https://fonts.googleapis.com/css?family=Indie+Flower' );
 	wp_enqueue_style( 'tld-titillium-font', 'https://fonts.googleapis.com/css?family=Titillium+Web' );
-	wp_enqueue_style( 'tld-alegreya-font', 'https://fonts.googleapis.com/css?family=Poiret+One' );
+	wp_enqueue_style( 'tld-poiret-font', 'https://fonts.googleapis.com/css?family=Poiret+One' );
 }
 add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' );
 
 function tld_actt_admin_css(){
 
-	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( '/assets/css/admin.css?v1.0.0' ) );
+	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( 'assets/css/admin.css?v1.0.0' . time() ) );
+	wp_enqueue_script( 'tld_actt_admin_styles2',  plugin_dir_url( __FILE__ ) . ( 'assets/js/tld-scripts.js?v1.0.0' . time() ) );
 
 }
 add_action( 'admin_enqueue_scripts', 'tld_actt_admin_css' );
+
+
+
 
 //setup review timer
 if ( function_exists( 'tld_actt_review_notice' ) ) {
@@ -222,4 +227,12 @@ function tld_actt_shortcode( $atts, $content = null ){
 
 add_shortcode( 'actt', 'tld_actt_shortcode' );
 
+
+function tld_actt_saved_shortcode(){
+
+echo 'Hello World test';
+
+}
+
+add_shortcode( 'actt-', 'tld_actt_saved_shortcode' );
 ?>

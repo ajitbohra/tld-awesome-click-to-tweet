@@ -7,3 +7,6 @@ optional linkback
 http://ianlunn.github.io/Hover/
 
 //Code
+
+- Admin page
+- Store shortcode details in db and retrieve based on ID

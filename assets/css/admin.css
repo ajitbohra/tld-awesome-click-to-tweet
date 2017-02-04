@@ -10,3 +10,14 @@ i.mce-i-icon {
     margin-left: -2px;
     padding-right: 2px;
 }
+
+/**/
+
+.someClass{
+  display: none !important;
+}
+
+/*Makes thickbox body scroll*/
+/*#TTTD-body{
+  overflow-x: scroll;
+}*/

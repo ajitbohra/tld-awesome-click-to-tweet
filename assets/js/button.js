@@ -6,9 +6,11 @@
       onclick: function() {
         editor.windowManager.open( {
           title: 'Awesome Click To Tweet',
-          width: 400,
+          width: 650,
           minHeight: 450,
-          body: [{
+          id: 'TTTD',
+          body: [
+            {
             type: 'textbox',
             multiline: 'true',
             name: 'mask',
@@ -20,12 +22,14 @@
             multiline: 'true',
             name: 'tweet',
             label: 'Tweet',
+            id: 'TEST',
             minHeight: 80
           },
           {
             type: 'textbox',
             name: 'btntext',
             label: 'Tweet button text',
+            id: 'TEST2',
             maxLength: 30
           },
           {
@@ -41,16 +45,27 @@
             maxLength: 1
           },
           {
+            id: 'dDown',
             type: 'listbox',
             name: 'mfont',
+
             label: 'Tweet mask font',
             'values': [
-              {text: 'Poiret One', value: 'poiret-one'},
+              {text: 'Poiret One', value: 'poiret-one', id: 'TTT'},
               {text: 'Lobster Two', value: 'lobster-two'},
               {text: 'Raleway', value: 'raleway'},
               {text: 'Titillium Web', value: 'titillium-web'},
               {text: 'Indie Flower', value: 'indie-flower'}
-            ]
+            ],
+            onselect: function() {
+            //  alert('change');
+              document.getElementById('mceu_77').classList.add('someClass');
+              // document.getElementById('dDown').className += ' new-class';
+              // var el = document.getElementById('dDown');
+              // if(el) {
+              //   el.className += el.className ? ' someClass' : 'someClass';
+              // }
+            },
           },
           {
             type: 'listbox',
