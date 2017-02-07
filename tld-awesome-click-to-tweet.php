@@ -7,6 +7,8 @@ Version: 1.0.4
 Author: Uriahs Victor
 Author URI: http://uriahsvictor.com
 License: GPLv2 or later
+Text Domain: tld-actt
+Domain Path: /languages
 */
 
 
@@ -15,7 +17,9 @@ defined( 'ABSPATH' ) or die( 'But why!?' );
 
 include dirname( __FILE__ )  . '/includes/tld-actt-tinymce-button.php';
 include dirname( __FILE__ )  . '/includes/tld-actt-notice.php';
-include dirname( __FILE__ )  . '/includes/actt-media-button.php';
+include dirname( __FILE__ )  . '/includes/tld-actt-media-button.php';
+include dirname( __FILE__ )  . '/includes/admin/tld-actt-settings-page.php';
+// include dirname( __FILE__ )  . '/includes/admin/tld-actt-options.php';
 
 /**
 * Register style sheet.
@@ -228,11 +232,47 @@ function tld_actt_shortcode( $atts, $content = null ){
 add_shortcode( 'actt', 'tld_actt_shortcode' );
 
 
-function tld_actt_saved_shortcode(){
+function tld_actt_saved_shortcode( $atts ){
 
-echo 'Hello World test';
+	$atts = shortcode_atts(
 
+		array(
+
+			'id' => '',
+
+		),$atts
+
+	);
+
+	$id = $atts['id'];
+
+	global $wpdb;
+	// change variable names
+	$mytable = $wpdb->prefix . 'my_table';
+	// try using get row instead
+	$styles = $wpdb->get_results( "SELECT * FROM $mytable WHERE id = $id " ); //maybe escape with wpdb prepare
+
+	foreach ( $styles as $style ){
+
+		$mystyle = 'width:' . $style->width;
+		$mystyle .= 'height:' . $style->height;
+		$mystyle .= 'background:' . $style->bg_color;
+
+		//add tweet text and mask
+		//add button text
+
+	};
+
+	?>
+
+	<div id="tld-actt-container" style="<?php echo esc_attr( $mystyle ) ?>">
+		<div id="tld-actt-button"><?php echo 'da' ?></div>
+	</div>
+
+
+	<?php
 }
+
 
 add_shortcode( 'actt-', 'tld_actt_saved_shortcode' );
 ?>

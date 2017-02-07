@@ -10,3 +10,7 @@ http://ianlunn.github.io/Hover/
 
 - Admin page
 - Store shortcode details in db and retrieve based on ID
+-check permissions, escape, sanitize, etc
+-Create table on activation
+-https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#loading-text-domain
+-make table name into a constant with wpdb prefix etc at top of plugin and replace it in other files
