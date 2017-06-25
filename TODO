@@ -14,3 +14,27 @@ http://ianlunn.github.io/Hover/
 -Create table on activation
 -https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#loading-text-domain
 -make table name into a constant with wpdb prefix etc at top of plugin and replace it in other files
+
+-Styles-
+-tweet box background color
+-tweet box width
+-tweet box height
+-tweet box border radius(4) -- left top, left bot, right top, right bot
+-tweet box border -- dotted etc
+-tweet box padding
+-tweet box text color
+-tweet box text font
+-Button width px/%
+-button text color
+-button text font
+-button background color
+-button padding
+-button(3) --left bot,right bot, center bot (use position absolute for left and right and position relative for center)
+--for center bot:
+
+width: 50%
+right:0
+bottom:0
+left:
+
+only load styles, fonts etc on posts where the plugin is active

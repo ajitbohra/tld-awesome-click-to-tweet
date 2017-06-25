@@ -14,7 +14,7 @@ Domain Path: /languages
 
 defined( 'ABSPATH' ) or die( 'But why!?' );
 
-
+//load conditionally, if is admin or front end
 include dirname( __FILE__ )  . '/includes/tld-actt-tinymce-button.php';
 include dirname( __FILE__ )  . '/includes/tld-actt-notice.php';
 include dirname( __FILE__ )  . '/includes/tld-actt-media-button.php';
@@ -250,13 +250,13 @@ function tld_actt_saved_shortcode( $atts ){
 	// change variable names
 	$mytable = $wpdb->prefix . 'my_table';
 	// try using get row instead
-	$styles = $wpdb->get_results( "SELECT * FROM $mytable WHERE id = $id " ); //maybe escape with wpdb prepare
+	$the_template = $wpdb->get_results( "SELECT * FROM $mytable WHERE id = $id " ); //maybe escape with wpdb prepare
 
-	foreach ( $styles as $style ){
+	foreach ( $the_template as $template_data ){
 
-		$mystyle = 'width:' . $style->width;
-		$mystyle .= 'height:' . $style->height;
-		$mystyle .= 'background:' . $style->bg_color;
+		$mystyle = 'width:' . $template_data->width;
+		$mystyle .= 'height:' . $template_data->height;
+		$mystyle .= 'background:' . $template_data->bg_color;
 
 		//add tweet text and mask
 		//add button text
@@ -265,8 +265,9 @@ function tld_actt_saved_shortcode( $atts ){
 
 	?>
 
-	<div id="tld-actt-container" style="<?php echo esc_attr( $mystyle ) ?>">
-		<div id="tld-actt-button"><?php echo 'da' ?></div>
+	<div id="tld-actt-container" style="position:relative;<?php echo esc_attr( $mystyle ) ?>">
+		<p><?php echo $template_data->tweet; ?></p>
+		<div id="tld-actt-button" style="position:absolute"><?php echo 'TWEET NOW' ?></div>
 	</div>
 
 

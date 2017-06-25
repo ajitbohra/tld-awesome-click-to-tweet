@@ -24,41 +24,96 @@ function register_my_cool_plugin_settings() {
 
 function my_cool_plugin_settings_page() {
 
-?>
-<div class="wrap">
-<h1>Awesome Click to Tweet</h1>
+	?>
+	<div class="wrap">
+		<h1>Awesome Click to Tweet</h1>
 
-<form method="post" action="<?php echo plugin_dir_url( __FILE__ )  ?>tld-actt-options.php">
-    <?php settings_fields( 'tld-actt-settings-group' ); ?>
-    <?php do_settings_sections( 'tld-actt-settings-group' ); ?>
+		<form method="post" action="<?php echo plugin_dir_url( __FILE__ )  ?>tld-actt-options.php">
+			<?php settings_fields( 'tld-actt-settings-group' ); ?>
+			<?php do_settings_sections( 'tld-actt-settings-group' ); ?>
 
-		<!-- REMOVE GET OPTIONS FROM THESE INPUTS USE IT WHEN EDITING A SHORTCODE -->
-    <table class="form-table">
+			<div id="tld-actt-settings-wrap">
 
-        <tr valign="top">
-        <th scope="row"><?php _e( 'Template Name', 'tld-actt' ) ?></th>
-        <td><input type="text" name="tld-tweet-template-name" /></td>
-        </tr>
+				<div id="tld-actt-template-fields">
+					<ul>
+						<span><?php _e( 'Template Name', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-template-name" placeholder="Template 1"/></li>
+						<hr>
+						<span><?php _e( 'Tweet', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-text" id="tld-tweet-text" placeholder="Lorem Ipsum"/></li>
+						<span><?php _e( 'Height', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-box-height" id="tld-tweet-box-height" value="" placeholder="e.g 380px or 50%"/></li>
+						<span><?php _e( 'Tweet box width', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-box-width" id="tld-tweet-box-width" value="" placeholder="e.g 380px or 50%"/></li>
+						<span><?php _e( 'Background color', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-bg-color" id="tld-tweet-bg-color" value="" placeholder="e.g #000"/></li>
+					</ul>
+				</div>
 
-        <tr valign="top">
-        <th scope="row"><?php _e( 'Tweet box width', 'tld-actt' ) ?></th>
-        <td><input type="text" name="tld-tweet-box-width" value="<?php echo esc_attr( get_option('tld-tweet-box-width') ); ?>" />px</td>
-        </tr>
+				<div id="tld-actt-template-fields">
+					<ul>
+						<span><?php _e( 'Template Name', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-template-name" placeholder="Template 1"/></li>
+						<hr>
+						<span><?php _e( 'Tweet', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-text" id="tld-tweet-text" placeholder="Lorem Ipsum"/></li>
+						<span><?php _e( 'Height', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-box-height" id="tld-tweet-box-height" value="" placeholder="e.g 380px or 50%"/></li>
+						<span><?php _e( 'Tweet box width', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-box-width" id="tld-tweet-box-width" value="" placeholder="e.g 380px or 50%"/></li>
+						<span><?php _e( 'Background color', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-bg-color" id="tld-tweet-bg-color" value="" placeholder="e.g #000"/></li>
+					</ul>
+				</div>
 
-				<tr valign="top">
-				<th scope="row"><?php _e( 'Height', 'tld-actt' ) ?></th>
-				<td><input type="text" name="tld-tweet-box-height" value="<?php echo esc_attr( get_option('tld-tweet-box-height') ); ?>" />px</td>
-				</tr>
+				<div id="tld-actt-template-fields">
+					<ul>
+						<span><?php _e( 'Template Name', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-template-name" placeholder="Template 1"/></li>
+						<hr>
+						<span><?php _e( 'Tweet', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-text" id="tld-tweet-text" placeholder="Lorem Ipsum"/></li>
+						<span><?php _e( 'Height', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-box-height" id="tld-tweet-box-height" value="" placeholder="e.g 380px or 50%"/></li>
+						<span><?php _e( 'Tweet box width', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-box-width" id="tld-tweet-box-width" value="" placeholder="e.g 380px or 50%"/></li>
+						<span><?php _e( 'Background color', 'tld-actt' ) ?></span><li><input type="text" name="tld-tweet-bg-color" id="tld-tweet-bg-color" value="" placeholder="e.g #000"/></li>
+					</ul>
+				</div>
 
-        <tr valign="top">
-        <th scope="row"><?php _e( 'Background color', 'tld-actt' ) ?></th>
-        <td><input type="text" name="tld-tweet-bg-color" value="<?php echo esc_attr( get_option('tld-tweet-bg-color') ); ?>" /><small>include # sign</small></td>
-        </tr>
+				<div>
+					<input type="button" id="somebutton" value="button" onclick="addText()">
+				</div>
 
-    </table>
+			</div>
 
-    <?php submit_button(); ?>
+			<div style="float: right;">
 
-</form>
-</div>
-<?php } ?>
+				<div id="temp"><p>HUJKM</p></div>
+			</div>
+
+
+			<script>
+			// function addText()
+			// {
+			//     document.getElementById('temp').innerHTML = document.getElementById('tld-tweet-text').value;
+			//
+			//     document.getElementById('temp').style.height +=  document.getElementById('tld-tweet-box-heightt').value;
+			//
+			//     document.getElementById('temp').style.width +=  document.getElementById('tld-tweet-box-width').value;
+			//     // document.getElementById('temp').style.height =  "100px";
+			// 		//
+			//     // document.getElementById('temp').style.width =  "305px";
+			// 		//
+			// 		// document.getElementById('temp').style.backgroundColor =  "#000"
+			// 		document.getElementById('temp').style.backgroundColor +=   document.getElementById('tld-tweet-bg-color').value;
+			// }
+			// jQuery(document).ready(function($) {
+			var $ = jQuery.noConflict();
+			var width =  $('#tld-tweet-box-width').val();
+			var height =  $('#tld-tweet-box-height').val();
+			var color =  $('#tld-tweet-bg-color').val();
+
+			// var width =  "432px";
+			// var height =  "120px";
+			// var color =  "#000";
+			function addText() {
+				$("#temp p").text($("#tld-tweet-text").val())
+				$("#temp").height($('#tld-tweet-box-height').val())
+				// $("#temp").css({"background-color" :  color, "width": width });
+				$("#temp").css({"background-color" :  $('#tld-tweet-bg-color').val(), "width": $('#tld-tweet-box-width').val()});
+			}
+			// });
+			</script>
+
+
+		</form>
+		<?php submit_button(); ?>
+	</div>
+	<?php } ?>

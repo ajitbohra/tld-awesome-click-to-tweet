@@ -14,6 +14,10 @@ if ( current_user_can( 'administrator' ) ){
     $name = $_POST['tld-tweet-template-name'];
   };
 
+  if ( isset( $_POST['tld-tweet-text'] )  ){
+    $tweet = $_POST['tld-tweet-text'];
+  };
+
   if ( isset( $_POST['tld-tweet-box-width'] )  ){
     $width = $_POST['tld-tweet-box-width'] . 'px;';
   };
@@ -33,6 +37,7 @@ if ( current_user_can( 'administrator' ) ){
     array(
 
       'name'      => $name,
+      'tweet'     => $tweet,
       'width'     => $width,
       'height'    => $height,
       'bg_color'  => $bg_color

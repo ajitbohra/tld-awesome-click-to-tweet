@@ -21,3 +21,9 @@ i.mce-i-icon {
 /*#TTTD-body{
   overflow-x: scroll;
 }*/
+
+/* SETTINGS PAGE */
+
+#tld-actt-template-fields{ float: left; }
+
+#tld-actt-template-fields li { list-style-type: none; }
