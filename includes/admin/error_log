@@ -1,4 +1,0 @@
-[05-Feb-2017 15:15:04 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function wp_get_referer() in /home2/uriahs/public_html/wp1/wp-content/plugins/tld-awesome-click-to-tweet/includes/admin/tld-actt-options.php:6
-Stack trace:
-#0 {main}
-  thrown in /home2/uriahs/public_html/wp1/wp-content/plugins/tld-awesome-click-to-tweet/includes/admin/tld-actt-options.php on line 6
