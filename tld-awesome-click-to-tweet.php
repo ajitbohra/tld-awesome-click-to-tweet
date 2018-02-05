@@ -20,24 +20,19 @@ include dirname( __FILE__ )  . '/includes/tld-actt-notice.php';
 * Register style sheet.
 */
 function tld_actt_load_intents_assets() {
-	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' );
-	wp_register_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
-	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
-	wp_enqueue_style( 'tld-tweet-intents' );
-	wp_enqueue_style( 'tld-tweet-icomoon' );
-	wp_enqueue_style( 'tld-tweet-intents-animate' );
-	wp_enqueue_style( 'tld-lobster-font', 'https://fonts.googleapis.com/css?family=Lobster+Two' );
-	wp_enqueue_style( 'tld-raleway-font', 'https://fonts.googleapis.com/css?family=Raleway' );
-	wp_enqueue_style( 'tld-indie-font', 'https://fonts.googleapis.com/css?family=Indie+Flower' );
-	wp_enqueue_style( 'tld-titillium-font', 'https://fonts.googleapis.com/css?family=Titillium+Web' );
-	wp_enqueue_style( 'tld-alegreya-font', 'https://fonts.googleapis.com/css?family=Poiret+One' );
+	wp_enqueue_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' );
+	wp_enqueue_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
+	wp_enqueue_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
+	wp_enqueue_style( 'tld-lobster-font', '//fonts.googleapis.com/css?family=Lobster+Two' );
+	wp_enqueue_style( 'tld-raleway-font', '//fonts.googleapis.com/css?family=Raleway' );
+	wp_enqueue_style( 'tld-indie-font', '//fonts.googleapis.com/css?family=Indie+Flower' );
+	wp_enqueue_style( 'tld-titillium-font', '//fonts.googleapis.com/css?family=Titillium+Web' );
+	wp_enqueue_style( 'tld-alegreya-font', '//fonts.googleapis.com/css?family=Poiret+One' );
 }
 add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' );
 
 function tld_actt_admin_css(){
-
-	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( '/assets/css/admin.css?v1.0.0' ) );
-
+	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( 'assets/css/admin.css?v1.0.0' ) );
 }
 add_action( 'admin_enqueue_scripts', 'tld_actt_admin_css' );
 
@@ -222,4 +217,11 @@ function tld_actt_shortcode( $atts, $content = null ){
 
 add_shortcode( 'actt', 'tld_actt_shortcode' );
 
-?>
+/**
+ * Block Initializer.
+ */
+add_action( 'plugins_loaded', function () {
+	if ( function_exists( 'register_block_type' ) ) {
+		require_once( plugin_dir_path( __FILE__ ) . 'src/init.php' );
+	}
+} );
