@@ -1,3 +1,1 @@
-.ftpconfig
-wp-config.php
-*.zip
+node_modules

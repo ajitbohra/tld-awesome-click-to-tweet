@@ -1,13 +1,13 @@
 === Plugin Name ===
 
-Contributors: uriahs-victor
+Contributors: uriahs-victor, hardeepasrani
 Plugin Name: Awesome Click To Tweet
 Plugin URI: https://github.com/UVLabs/tld-awesome-click-to-tweet
 Tags: twitter, click to tweet, tweet intents, social media, social, tweet, twitter plugin, twitter widget, twitter boxes, tweet box, animated, customizable, facebook share, twitter
 Author URI: http://uriahsvictor.com
 Author: Uriahs Victor
 Requires at least: 4.1
-Tested up to: 4.7
+Tested up to: 4.9
 Stable tag: 1.0.4
 Version: 1.0.4
 License: GPLv2 of later
