@@ -3,7 +3,7 @@
 Plugin Name: Awesome Click To Tweet
 Plugin URI: https://uriahsvictor.com/portfolio/tld-awesome-click-tweet/
 Description: Insert customizable animated or non-animated tweet boxes directly into posts or pages after any paragraph via shortcode.
-Version: 1.0.4
+Version: 1.0.5
 Author: Uriahs Victor
 Author URI: http://uriahsvictor.com
 License: GPLv2 or later
