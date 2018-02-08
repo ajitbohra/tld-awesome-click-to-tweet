@@ -91,6 +91,7 @@ export default registerBlockType(
 						) }
 						style={	{ 'animation-duration': `${props.attributes.duration}s`, 'animation-delay': `${props.attributes.delay}s` } }
 					>
+						// TODO: Update to RichText
 						<Editable
 							tagName="p"
 							placeholder={ __( 'Your Tweet' ) }
