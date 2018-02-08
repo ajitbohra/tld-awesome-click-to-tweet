@@ -30,7 +30,10 @@ function tld_actt_load_intents_assets() {
 	wp_enqueue_style( 'tld-alegreya-font', '//fonts.googleapis.com/css?family=Poiret+One' );
 }
 add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' ); // For Frontend
-add_action( 'enqueue_block_editor_assets', 'tld_actt_load_intents_assets' ); // For Backend Block
+
+if ( function_exists( 'register_block_type' ) ) {
+	add_action( 'enqueue_block_editor_assets', 'tld_actt_load_intents_assets' ); // For Backend Block
+}
 
 
 function tld_actt_admin_css(){
@@ -115,7 +118,7 @@ function tld_actt_shortcode( $atts, $content = null ){
 		break;
 
 		case 'dashed':
-		$the_actt_template = ' tld-actt-border-dashed';
+		$the_actt_template = ' tld-actt-dashed';
 		break;
 
 		case 'minimalist':
@@ -156,7 +159,7 @@ function tld_actt_shortcode( $atts, $content = null ){
 		}
 		break;
 
-		case ' tld-actt-border-dashed':
+		case ' tld-actt-dashed':
 		if ( $the_actt_anim != 'none' ) {
 			$actt_tweet = '
 			<div id="tld-actt-tweet-container" class="'.esc_attr( $the_actt_anim_classes ) . esc_attr( $the_actt_template_classes ).'" style="'.esc_attr( $the_actt_animation_settings).'">
