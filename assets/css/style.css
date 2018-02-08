@@ -107,7 +107,7 @@
 
 /*=== Border Dashed ===*/
 
-.tld-actt-border-dashed{
+.tld-actt-border-dashed, .tld-actt-dashed{
   border: 2px dashed #000 !important;
   border-radius: 10px;
 }

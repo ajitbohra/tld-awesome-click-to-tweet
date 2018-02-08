@@ -1,8 +1,8 @@
 <?php
 /**
- * Blocks Initializer
+ * Block Initializer
  *
- * Enqueue CSS/JS of all the blocks.
+ * Enqueue CSS/JS for block.
  */
 
 // Exit if accessed directly.
@@ -13,17 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function tld_gutenberg_editor_assets() {
 	// Scripts
 	wp_enqueue_script( 'tld-block-js', plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), array( 'wp-i18n', 'wp-blocks', 'wp-components' ) );
-
 	// Styles
 	wp_enqueue_style( 'tld-block-editor-css', plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ), array( 'wp-edit-blocks' ) );
-	wp_enqueue_style( 'tld-tweet-intents', plugins_url( 'assets/css/style.css', dirname( __FILE__ ) ) );
-	wp_enqueue_style( 'tld-tweet-icomoon', plugins_url( 'assets/css/icomoon.css', dirname( __FILE__ ) ) );
-	wp_enqueue_style( 'tld-tweet-intents-animate', plugins_url( 'assets/css/animate.min.css', dirname( __FILE__ ) ) );
-	wp_enqueue_style( 'tld-lobster-font', '//fonts.googleapis.com/css?family=Lobster+Two' );
-	wp_enqueue_style( 'tld-raleway-font', '//fonts.googleapis.com/css?family=Raleway' );
-	wp_enqueue_style( 'tld-indie-font', '//fonts.googleapis.com/css?family=Indie+Flower' );
-	wp_enqueue_style( 'tld-titillium-font', '//fonts.googleapis.com/css?family=Titillium+Web' );
-	wp_enqueue_style( 'tld-alegreya-font', '//fonts.googleapis.com/css?family=Poiret+One' );
 }
 
 // Hook assets to editor
@@ -51,7 +42,7 @@ register_block_type( 'thelonedev/clicktotweet', [
 			'type' => 'string',
 			'default' => 'poiret-one',
 		),
-		'animaion' => array(
+		'animation' => array(
 			'type' => 'string',
 			'default' => 'none',
 		),
@@ -72,25 +63,12 @@ register_block_type( 'thelonedev/clicktotweet', [
 
 // Callback function for block
 function tld_block_callback( $attributes) {
-	$tweetmask = $attributes[ 'tweetmask' ];
-	$tweet	   = $attributes[ 'tweet' ];
-	$button	   = $attributes[ 'button' ];
-	$theme     = $attributes[ 'theme' ];
-	$font      = $attributes[ 'font' ];
-	$animation = $attributes[ 'animaion' ];
-	$infinite  = $attributes[ 'infinite' ];
-	$duration  = $attributes[ 'duration' ];
-	$delay     = $attributes[ 'delay' ];
+	extract( $attributes ); 
 
-	if( $tweet === '' ) {
-		$tweet = $tweetmask;
-	}
+	$infinite = ( $infinite === true ? 'infinite=" infinite"' : 'infinite=""' );
+	$tweet = ( $tweet === '' ? $tweetmask : $tweet );
 
-	if( $infinite === true ) {
-		$infinite = 'infinite=" infinite"';
-	} else {
-		$infinite = 'infinite=""';
-	}
+	$shortcode_string = '[actt %s mask="%s" tweet="%s" btn-text="%s" duration="%s" delay="%s" font="%s" anim="%s" template="%s"]';
 
-	return '[actt '. $infinite .' mask="'. $tweetmask .'" tweet="'. $tweet .'" btn-text="'. $button .'" duration="'. $duration .'" delay="'. $delay .'" font="'. $font .'" anim="'. $animation .'" template="'. $theme .'"]';
+	return sprintf( $shortcode_string, $infinite, $tweetmask, $tweet, $button, $duration, $delay, $font, $animation, $theme );
 }
