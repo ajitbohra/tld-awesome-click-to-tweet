@@ -35,7 +35,7 @@ export default registerBlockType(
 
 			// Events for Toolbar & Inspector controls
 			const onChangeTweetMask = value => {
-				props.setAttributes( { tweetmask: value[0] } );
+				props.setAttributes( { tweetmask: value } );
 			};
 			const onChangeTweet = value => {
 				props.setAttributes( { tweet: value } );
