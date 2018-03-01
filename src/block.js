@@ -14,7 +14,7 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const {
 	registerBlockType,
-	Editable,
+	RichText,
 } = wp.blocks;
 
 /**
@@ -62,19 +62,19 @@ export default registerBlockType(
 				props.setAttributes( { delay: value } );
 			};
 
-			const animation = !!props.focus && ((props.attributes.animation === 'none') ? '' : props.attributes.animation);
+			const animation = !!props.isSelected && ((props.attributes.animation === 'none') ? '' : props.attributes.animation);
 
 			return [
 
 				// Inspector
-				!! props.focus && (
+				!! props.isSelected && (
 					<Inspector 
 						{ ...{ onChangeTweet, onChangeButton, onChangeAnimation, onChangeDuration, onChangeDelay, toggleInfinite,...props} }
 					/>
 				),
 
 				// Toolbar
-				!! props.focus && (
+				!! props.isSelected && (
 					<Controls {... { onChangeTheme, onChangeFont,...props }} />
 				),
 
@@ -85,19 +85,17 @@ export default registerBlockType(
 						className={ classnames(
 							`tld-actt-${props.attributes.theme}`,
 							props.attributes.font,
-							{ animated: !! props.focus && ( props.attributes.animation !== 'none' ) },
+							{ animated: !! props.isSelected && ( props.attributes.animation !== 'none' ) },
 							animation,
-							{ infinite: !! props.focus && ( props.attributes.infinite ) },
+							{ infinite: !! props.isSelected && ( props.attributes.infinite ) },
 						) }
 						style={	{ 'animation-duration': `${props.attributes.duration}s`, 'animation-delay': `${props.attributes.delay}s` } }
 					>
-					{ /* TODO: Update to RichText */ }
-						<Editable
+						<RichText
 							tagName="p"
 							placeholder={ __( 'Your Tweet' ) }
 							onChange={ onChangeTweetMask }
 							value={ props.attributes.tweetmask }
-							focus={ props.focus }
 							formattingControls={ [] }
 						/>
 						<div

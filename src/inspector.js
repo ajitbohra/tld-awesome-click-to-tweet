@@ -7,15 +7,13 @@ const {
     BlockControls,
 } = wp.blocks;
 const {
-	PanelBody,
-} = wp.components;
-const {
-	TextareaControl,
+    PanelBody,
+    TextareaControl,
     TextControl,
     SelectControl,
     RangeControl,
     ToggleControl,
-} = InspectorControls;
+} = wp.components;
 
 /**
 * Create an Inspector Controls wrapper Component
