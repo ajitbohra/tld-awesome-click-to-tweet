@@ -4,7 +4,6 @@
 const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const WebpackRTLPlugin = require("webpack-rtl-plugin");
 
 // Enviornment Flag
 const inProduction = "production" === process.env.NODE_ENV;
@@ -42,6 +41,7 @@ const wpDependencies = [
   "components",
   "element",
   "blocks",
+  "editor",
   "hooks",
   "utils",
   "date",
@@ -80,14 +80,10 @@ const config = {
       {
         test: /editor\.s?css$/,
         use: editBlocksCSSPlugin.extract(extractConfig)
-      },
+      }
     ]
   },
-  plugins: [
-    new CleanWebpackPlugin(["build"]),
-    editBlocksCSSPlugin,
-    new WebpackRTLPlugin()
-  ],
+  plugins: [new CleanWebpackPlugin(["block/build"]), editBlocksCSSPlugin],
   stats: {
     children: false
   }
