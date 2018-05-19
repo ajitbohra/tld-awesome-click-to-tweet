@@ -20,6 +20,27 @@ const {
 */
 
 const Inspector = (props) => {
+    // Events
+    const onChangeTweet = value => {
+        props.setAttributes({ tweet: value });
+    };
+    const onChangeButton = value => {
+        props.setAttributes({ button: value });
+    };
+
+    const onChangeAnimation = value => {
+        props.setAttributes({ animation: value });
+    };
+    const toggleInfinite = () => {
+        props.setAttributes({ infinite: !props.attributes.infinite });
+    };
+    const onChangeDuration = value => {
+        props.setAttributes({ duration: value });
+    };
+    const onChangeDelay = value => {
+        props.setAttributes({ delay: value });
+    };
+
     return (
         <InspectorControls key="inspector">
             <PanelBody title={__('Tweet Settings')} >
@@ -89,7 +110,7 @@ const Inspector = (props) => {
                 }
             </PanelBody>
         </InspectorControls>
-    )   
+    )
 }
 
 export default Inspector;

@@ -23,6 +23,14 @@ const {
 * Create an Inspector Controls wrapper Component
 */
 const Controls = (props) => {
+    // Events
+    const onChangeTheme = value => {
+        props.setAttributes({ theme: value });
+    };
+    const onChangeFont = value => {
+        props.setAttributes({ font: value });
+    };
+
     return (
         <BlockControls key="toolbar">
             <Toolbar>
