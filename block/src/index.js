@@ -11,11 +11,9 @@ import './editor.scss';
  * Internal block libraries
  */
 const { __ } = wp.i18n;
-const { Component } = wp.element;
-const {
-	registerBlockType,
-	RichText,
-} = wp.blocks;
+const { Component, Fragment } = wp.element;
+const { registerBlockType } = wp.blocks;
+const { RichText } = wp.editor;
 
 /**
  * Register block
@@ -36,58 +34,53 @@ export default registerBlockType(
 				props.setAttributes({ tweetmask: value });
 			};
 
-			const animation = !!props.isSelected && ((props.attributes.animation === 'none') ? '' : props.attributes.animation);
+			const animation = props.attributes.animation === 'none' ? '' : props.attributes.animation;
 
-			return [
-				!!props.isSelected && (
-					<Inspector
-						{...{ ...props }}
-					/>
-				),
-				!!props.isSelected && (
+			return (
+				<Fragment>
+					<Inspector {...{ ...props }} />
 					<Controls {... { ...props }} />
-				),
-
-				// Edit UI
-				<div className={props.className} key={props.className}>
-					<div
-						id="tld-actt-tweet-container"
-						className={classnames(
-							`tld-actt-${props.attributes.theme}`,
-							props.attributes.font,
-							{ animated: !!props.isSelected && (props.attributes.animation !== 'none') },
-							animation,
-							{ infinite: !!props.isSelected && (props.attributes.infinite) },
-						)}
-						style={{ 'animation-duration': `${props.attributes.duration}s`, 'animation-delay': `${props.attributes.delay}s` }}
-					>
-						<RichText
-							tagName="p"
-							placeholder={__('Your Tweet')}
-							onChange={onChangeTweetMask}
-							value={props.attributes.tweetmask}
-							formattingControls={[]}
-						/>
+					<div className={props.className}>
 						<div
+							id="tld-actt-tweet-container"
 							className={classnames(
-								'tld-actt-tweet-text',
-								{ 'tld-actt-white-btn-text': (props.attributes.theme === 'bbutton') },
-								{ 'tld-actt-btn-full': (props.attributes.theme === 'bbutton') },
+								`tld-actt-${props.attributes.theme}`,
+								props.attributes.font,
+								{ animated: animation },
+								animation,
+								{ infinite: props.attributes.infinite },
 							)}
+							style={{ 'animation-duration': `${props.attributes.duration}s`, 'animation-delay': `${props.attributes.delay}s` }}
 						>
-							<a className={(props.attributes.theme !== 'bbutton') ? 'tld-actt-btn-default' : ''}
-								target="_blank"
-								href={`https://twitter.com/intent/tweet?text=${(props.attributes.tweet !== undefined ? props.attributes.tweet : props.attributes.tweetmask)}`}>
-								<span>{props.attributes.button}</span>
-								<span className="icon-twitter"></span>
-							</a>
+							<RichText
+								format="string"
+								tagName="p"
+								placeholder={__('Your Tweet')}
+								onChange={onChangeTweetMask}
+								value={props.attributes.tweetmask}
+								formattingControls={[]}
+							/>
+							<div
+								className={classnames(
+									'tld-actt-tweet-text',
+									{ 'tld-actt-white-btn-text': (props.attributes.theme === 'bbutton') },
+									{ 'tld-actt-btn-full': (props.attributes.theme === 'bbutton') },
+								)}
+							>
+								<a className={(props.attributes.theme !== 'bbutton') ? 'tld-actt-btn-default' : ''}
+									target="_blank"
+									href={`https://twitter.com/intent/tweet?text=${(props.attributes.tweet !== undefined ? props.attributes.tweet : props.attributes.tweetmask)}`}>
+									<span>{props.attributes.button}</span>
+									<span className="icon-twitter"></span>
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>,
-			];
+				</Fragment>
+			);
 		},
 		save() {
-			// Rendering in PHP
+			// Server side rendering
 			return null;
 		},
 	},

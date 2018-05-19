@@ -12,7 +12,7 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const {
     BlockControls,
-} = wp.blocks;
+} = wp.editor;
 const {
     Toolbar,
     IconButton,
@@ -37,7 +37,7 @@ const Controls = (props) => {
                 <IconButton
                     icon={blockIcons.bbutton}
                     label={__('Big Button')}
-                    onClick={() => props.onChangeTheme('bbutton')}
+                    onClick={() => onChangeTheme('bbutton')}
                     className={
                         classnames(
                             { 'tld-selected-icon': (props.attributes.theme === 'bbutton') },
@@ -47,7 +47,7 @@ const Controls = (props) => {
                 <IconButton
                     icon={blockIcons.dashed}
                     label={__('Dashed')}
-                    onClick={() => props.onChangeTheme('dashed')}
+                    onClick={() => onChangeTheme('dashed')}
                     className={
                         classnames(
                             { 'tld-selected-icon': (props.attributes.theme === 'dashed') },
@@ -57,7 +57,7 @@ const Controls = (props) => {
                 <IconButton
                     icon={blockIcons.minimalist}
                     label={__('Minimalist')}
-                    onClick={() => props.onChangeTheme('minimalist')}
+                    onClick={() => onChangeTheme('minimalist')}
                     className={
                         classnames(
                             { 'tld-selected-icon': (props.attributes.theme === 'minimalist') },
@@ -74,27 +74,27 @@ const Controls = (props) => {
                         {
                             title: __('Poiret One'),
                             icon: 'editor-textcolor',
-                            onClick: () => props.onChangeFont('poiret-one'),
+                            onClick: () => onChangeFont('poiret-one'),
                         },
                         {
                             title: __('Lobster Two'),
                             icon: 'editor-textcolor',
-                            onClick: () => props.onChangeFont('lobster-two'),
+                            onClick: () => onChangeFont('lobster-two'),
                         },
                         {
                             title: __('Raleway'),
                             icon: 'editor-textcolor',
-                            onClick: () => props.onChangeFont('raleway'),
+                            onClick: () => onChangeFont('raleway'),
                         },
                         {
                             title: __('Titillium Web'),
                             icon: 'editor-textcolor',
-                            onClick: () => props.onChangeFont('titillium-web'),
+                            onClick: () => onChangeFont('titillium-web'),
                         },
                         {
                             title: __('Indie Flower'),
                             icon: 'editor-textcolor',
-                            onClick: () => props.onChangeFont('indie-flower'),
+                            onClick: () => onChangeFont('indie-flower'),
                         },
                     ]}
                 />

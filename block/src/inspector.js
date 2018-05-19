@@ -5,7 +5,7 @@ const { __ } = wp.i18n;
 const {
     InspectorControls,
     BlockControls,
-} = wp.blocks;
+} = wp.editor;
 const {
     PanelBody,
     TextareaControl,
@@ -47,13 +47,13 @@ const Inspector = (props) => {
                 <TextareaControl
                     label={__('Tweet Text')}
                     value={props.attributes.tweet}
-                    onChange={props.onChangeTweet}
+                    onChange={onChangeTweet}
                     help={__('You can add hashtags and mentions here that will be part of the actual tweet, but not of the display on your post.')}
                 />
                 <TextControl
                     label={__('Button Text')}
                     value={props.attributes.button}
-                    onChange={props.onChangeButton}
+                    onChange={onChangeButton}
                 />
             </PanelBody>
             <PanelBody title={__('Animation Settings')} >
@@ -78,14 +78,14 @@ const Inspector = (props) => {
                             value: 'bounce',
                         },
                     ]}
-                    onChange={props.onChangeAnimation}
+                    onChange={onChangeAnimation}
                 />
                 {props.attributes.animation !== 'none' ?
                     <div className="if-animation-enable">
                         <RangeControl
                             label={__('Animation Duration (Seconds)')}
                             value={props.attributes.duration || 1}
-                            onChange={props.onChangeDuration}
+                            onChange={onChangeDuration}
                             min={1}
                             max={9}
                             beforeIcon="clock"
@@ -94,7 +94,7 @@ const Inspector = (props) => {
                         <RangeControl
                             label={__('Animation Delay (Seconds)')}
                             value={props.attributes.delay || 1}
-                            onChange={props.onChangeDelay}
+                            onChange={onChangeDelay}
                             min={1}
                             max={9}
                             beforeIcon="clock"
@@ -103,7 +103,7 @@ const Inspector = (props) => {
                         <ToggleControl
                             label={__('Loop Animation?')}
                             checked={!!props.attributes.infinite}
-                            onChange={props.toggleInfinite}
+                            onChange={toggleInfinite}
                         />
                     </div> :
                     null
