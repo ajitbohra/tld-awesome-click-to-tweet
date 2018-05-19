@@ -221,6 +221,6 @@ add_shortcode( 'actt', 'tld_actt_shortcode' );
  */
 add_action( 'plugins_loaded', function () {
 	if ( function_exists( 'register_block_type' ) ) {
-		require_once( plugin_dir_path( __FILE__ ) . 'src/init.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'block/init.php' );
 	}
 } );
