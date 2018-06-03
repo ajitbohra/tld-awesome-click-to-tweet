@@ -1,3 +1,4 @@
+node_modules
 .ftpconfig
-wp-config.php
-*.zip
+test-fb.html
+TODO

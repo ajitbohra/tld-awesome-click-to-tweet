@@ -1,15 +1,15 @@
 === Plugin Name ===
 
-Contributors: uriahs-victor
+Contributors: uriahs-victor, hardeepasrani, ajitbohra
 Plugin Name: Awesome Click To Tweet
 Plugin URI: https://github.com/UVLabs/tld-awesome-click-to-tweet
 Tags: twitter, click to tweet, tweet intents, social media, social, tweet, twitter plugin, twitter widget, twitter boxes, tweet box, animated, customizable, facebook share, twitter
 Author URI: http://uriahsvictor.com
 Author: Uriahs Victor
 Requires at least: 4.1
-Tested up to: 4.7
-Stable tag: 1.0.4
-Version: 1.0.4
+Tested up to: 4.9
+Stable tag: 1.0.7
+Version: 1.0.7
 License: GPLv2 of later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,19 @@ https://www.youtube.com/watch?v=O5qip_FdjBo
 6. Actual tweet could be different than mask
 
 == Changelog ==
+
+**1.0.7**
+
+* minor version fix
+
+**1.0.6**
+
+* Gutenberg fixes
+
+**1.0.5**
+
+* Gutenberg support, thanks @hardeepasrani
+* Tested on WP 4.9
 
 **1.0.4**
 

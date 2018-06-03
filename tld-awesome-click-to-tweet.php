@@ -3,7 +3,7 @@
 Plugin Name: Awesome Click To Tweet
 Plugin URI: https://uriahsvictor.com/portfolio/tld-awesome-click-tweet/
 Description: Insert customizable animated or non-animated tweet boxes directly into posts or pages after any paragraph via shortcode.
-Version: 1.0.4
+Version: 1.0.7
 Author: Uriahs Victor
 Author URI: http://uriahsvictor.com
 License: GPLv2 or later
@@ -25,6 +25,7 @@ include dirname( __FILE__ )  . '/includes/admin/tld-actt-settings-page.php';
 * Register style sheet.
 */
 function tld_actt_load_intents_assets() {
+<<<<<<< HEAD
 	wp_register_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' . time() );
 	wp_register_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
 	wp_register_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
@@ -36,14 +37,31 @@ function tld_actt_load_intents_assets() {
 	wp_enqueue_style( 'tld-indie-font', 'https://fonts.googleapis.com/css?family=Indie+Flower' );
 	wp_enqueue_style( 'tld-titillium-font', 'https://fonts.googleapis.com/css?family=Titillium+Web' );
 	wp_enqueue_style( 'tld-poiret-font', 'https://fonts.googleapis.com/css?family=Poiret+One' );
+=======
+	wp_enqueue_style( 'tld-tweet-intents', plugin_dir_url( __FILE__ ) . 'assets/css/style.css?v1.0.0' );
+	wp_enqueue_style( 'tld-tweet-icomoon', plugin_dir_url( __FILE__ ) . 'assets/css/icomoon.css' );
+	wp_enqueue_style( 'tld-tweet-intents-animate', plugin_dir_url( __FILE__ ) . 'assets/css/animate.min.css?v3.5.2' );
+	wp_enqueue_style( 'tld-lobster-font', '//fonts.googleapis.com/css?family=Lobster+Two' );
+	wp_enqueue_style( 'tld-raleway-font', '//fonts.googleapis.com/css?family=Raleway' );
+	wp_enqueue_style( 'tld-indie-font', '//fonts.googleapis.com/css?family=Indie+Flower' );
+	wp_enqueue_style( 'tld-titillium-font', '//fonts.googleapis.com/css?family=Titillium+Web' );
+	wp_enqueue_style( 'tld-alegreya-font', '//fonts.googleapis.com/css?family=Poiret+One' );
+>>>>>>> upstream/development
 }
-add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' );
+add_action( 'wp_enqueue_scripts', 'tld_actt_load_intents_assets' ); // For Frontend
 
-function tld_actt_admin_css(){
+if ( function_exists( 'register_block_type' ) ) {
+	add_action( 'enqueue_block_editor_assets', 'tld_actt_load_intents_assets' ); // For Backend Block
+}
 
+<<<<<<< HEAD
 	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( 'assets/css/admin.css?v1.0.0' . time() ) );
 	wp_enqueue_script( 'tld_actt_admin_styles2',  plugin_dir_url( __FILE__ ) . ( 'assets/js/tld-scripts.js?v1.0.0' . time() ) );
+=======
+>>>>>>> upstream/development
 
+function tld_actt_admin_css(){
+	wp_enqueue_style( 'tld_actt_admin_styles',  plugin_dir_url( __FILE__ ) . ( 'assets/css/admin.css?v1.0.0' ) );
 }
 add_action( 'admin_enqueue_scripts', 'tld_actt_admin_css' );
 
@@ -77,8 +95,6 @@ if ( function_exists( 'tld_actt_review_notice' ) ) {
 
 }
 
-
-
 function tld_actt_shortcode( $atts, $content = null ){
 
 	$atts = shortcode_atts( array(
@@ -92,9 +108,6 @@ function tld_actt_shortcode( $atts, $content = null ){
 		'infinite'	=> ' infinite',
 		'template'	=> '',
 		'font'			=> ' lobster-two',
-
-
-
 	), $atts, 'actt' );
 
 	$the_actt_mask 		= $atts['mask'];
@@ -132,7 +145,7 @@ function tld_actt_shortcode( $atts, $content = null ){
 		break;
 
 		case 'dashed':
-		$the_actt_template = ' tld-actt-border-dashed';
+		$the_actt_template = ' tld-actt-dashed';
 		break;
 
 		case 'minimalist':
@@ -144,7 +157,6 @@ function tld_actt_shortcode( $atts, $content = null ){
 		break;
 
 	}
-
 
 	$the_actt_anim_classes	= 'animated ';
 	$the_actt_anim_classes	.= $the_actt_anim;
@@ -174,7 +186,7 @@ function tld_actt_shortcode( $atts, $content = null ){
 		}
 		break;
 
-		case ' tld-actt-border-dashed':
+		case ' tld-actt-dashed':
 		if ( $the_actt_anim != 'none' ) {
 			$actt_tweet = '
 			<div id="tld-actt-tweet-container" class="'.esc_attr( $the_actt_anim_classes ) . esc_attr( $the_actt_template_classes ).'" style="'.esc_attr( $the_actt_animation_settings).'">
@@ -231,6 +243,7 @@ function tld_actt_shortcode( $atts, $content = null ){
 
 add_shortcode( 'actt', 'tld_actt_shortcode' );
 
+<<<<<<< HEAD
 
 function tld_actt_saved_shortcode( $atts ){
 
@@ -276,3 +289,13 @@ function tld_actt_saved_shortcode( $atts ){
 
 add_shortcode( 'actt-', 'tld_actt_saved_shortcode' );
 ?>
+=======
+/**
+ * Block Initializer.
+ */
+add_action( 'plugins_loaded', function () {
+	if ( function_exists( 'register_block_type' ) ) {
+		require_once( plugin_dir_path( __FILE__ ) . 'block/init.php' );
+	}
+} );
+>>>>>>> upstream/development
